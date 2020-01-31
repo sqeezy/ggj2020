@@ -38,5 +38,6 @@ jobs:
       - uses: webbertakken/unity-builder@master
         with:
           projectPath: src/PlaceholderProject
-          unityVersion: 2019.3.0f6
+          unityVersion: 2019.2.19f1
+        #   unityVersion: 2019.3.0f6
           targetPlatform: StandaloneWindows64
