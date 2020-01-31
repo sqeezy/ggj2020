@@ -6,7 +6,7 @@ using Random = System.Random;
 
 public class Car
 {
-    private Vector3 _stearingVector = new Vector3(0, 5, 0);
+    private readonly Vector3 _stearingVector = new Vector3(0, 5, 0);
     public CarData Data { get; } = new CarData();
     public int PlayerId => Data.PlayerId;
     public Vector3 Position => Data.Position;
