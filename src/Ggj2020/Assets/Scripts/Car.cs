@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
 using UnityEngine;
@@ -7,6 +8,7 @@ using Random = System.Random;
 public class Car
 {
 	private readonly Vector3 _stearingVector = new Vector3(0, 1.5f, 0);
+	private float _velocityChange = 3;
 	private CarData Data { get; } = new CarData();
 	public int PlayerId => Data.PlayerId;
 	public Vector3 Position => Data.Position;
@@ -30,6 +32,34 @@ public class Car
 	public void StopStearRight()
 	{
 		InvalidateStearing(CarStearing.Right);
+	}
+
+	public void StartAccelerate()
+	{
+		Data.Acceleration = CarAcceleration.Forward;
+	}
+
+	public void StopAccelerate()
+	{
+		InvalidateAcceleration(CarAcceleration.Forward);
+	}
+
+	public void StartBreak()
+	{
+		Data.Acceleration = CarAcceleration.Backward;
+	}
+
+	public void StopBreak()
+	{
+		InvalidateAcceleration(CarAcceleration.Backward);
+	}
+
+	private void InvalidateAcceleration(CarAcceleration carAcceleration)
+	{
+		if (Data.Acceleration == carAcceleration)
+		{
+			Data.Acceleration = CarAcceleration.None;
+		}
 	}
 
 	private void InvalidateStearing(CarStearing carStearing)
@@ -59,6 +89,29 @@ public class Car
 	}
 
 	public void Tick()
+	{
+		ApplyStearing();
+		ApplyAccelaration();
+	}
+
+	private void ApplyAccelaration()
+	{
+		switch (Data.Acceleration)
+		{
+			case CarAcceleration.None:
+				break;
+			case CarAcceleration.Forward:
+				Data.Velocity += _velocityChange;
+				break;
+			case CarAcceleration.Backward:
+				Data.Velocity -= _velocityChange;
+				break;
+			default:
+				throw new ArgumentOutOfRangeException();
+		}
+	}
+
+	private void ApplyStearing()
 	{
 		switch (Data.Stearing)
 		{
@@ -94,6 +147,7 @@ public class CarData
 	public int PlayerId { get; } = _rng.Next();
 	public Vector3 Position { get; set; }
 	public Vector3 Rotation { get; set; }
+	public float Velocity { get; set; }
 	public CarAcceleration Acceleration { get; set; }
 	public CarStearing Stearing { get; set; }
 }
