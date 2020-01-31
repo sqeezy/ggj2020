@@ -9,9 +9,23 @@ on:
       - master
 
 env:
-  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_2019219f1 }}
 
 jobs:
+  requestActivation:
+    name: Request activation ✔
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      # Activate Unity
+      - name: Unity - Activate
+        uses: webbertakken/unity-activate@v1.1
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_2019219f1 }}
+
   buildForSomePlatforms:
     name: Build for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
@@ -22,7 +36,6 @@ jobs:
           - src/PlaceholderProject
         unityVersion:
           - 2019.2.19f1
-          - 2019.0.0f6
         targetPlatform:
           - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
@@ -38,13 +51,13 @@ jobs:
         #   - Switch # Build a Nintendo Switch player.
     steps:
       - uses: actions/checkout@v1
-      # - uses: actions/cache@v1.1.0
-      #   with:
-      #     path: ${{ matrix.projectPath }}/Library
-      #     key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
-      #     restore-keys: |
-      #       Library-${{ matrix.projectPath }}-
-      #       Library-
+      - uses: actions/cache@v1.1.0
+        with:
+          path: ${{ matrix.projectPath }}/Library
+          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
+          restore-keys: |
+            Library-${{ matrix.projectPath }}-
+            Library-
       - uses: webbertakken/unity-builder@v0.9
         with:
           projectPath: ${{ matrix.projectPath }}
