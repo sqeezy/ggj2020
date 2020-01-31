@@ -35,6 +35,24 @@ public class MoveLikeCar : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
+		if (Input.GetKeyDown(UpArrow))
+		{
+			State.StartAccelerate();
+		}
+		if (Input.GetKeyUp(UpArrow))
+		{
+			State.StopAccelerate();
+		}
+
+		if (Input.GetKeyDown(DownArrow))
+		{
+			State.StartBreak();
+		}
+		if (Input.GetKeyUp(DownArrow))
+		{
+			State.StopBreak();
+		}
+
 		State.Tick();
 
 		gameObject.transform.position = State.Position;

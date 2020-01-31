@@ -2,13 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
+using UnityEditor;
 using UnityEngine;
 using Random = System.Random;
 
 public class Car
 {
 	private readonly Vector3 _stearingVector = new Vector3(0, 1.5f, 0);
-	private float _velocityChange = 3;
+	private float _velocityChange = 0.01f;
+	private readonly Vector3 _forward = new Vector3(0, 0, 1);
 	private CarData Data { get; } = new CarData();
 	public int PlayerId => Data.PlayerId;
 	public Vector3 Position => Data.Position;
@@ -91,14 +93,22 @@ public class Car
 	public void Tick()
 	{
 		ApplyStearing();
-		ApplyAccelaration();
+		UpdateAccelaration();
+		ApplyAcceleration();
 	}
 
-	private void ApplyAccelaration()
+	private void ApplyAcceleration()
+	{
+		var rotation = Quaternion.Euler(0, Data.Rotation.y, 0);
+		Data.Position += Data.Velocity * (rotation * _forward);
+	}
+
+	private void UpdateAccelaration()
 	{
 		switch (Data.Acceleration)
 		{
 			case CarAcceleration.None:
+				Data.Velocity *= 0.99f;
 				break;
 			case CarAcceleration.Forward:
 				Data.Velocity += _velocityChange;
