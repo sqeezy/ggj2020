@@ -21,12 +21,17 @@ public class Car
     {
         Data.Rotation.SetFromToRotation(new Vector3(0, 0, 0), -_stearingVector);
     }
+
+    public void UpdatePosition(Vector3 newPosition)
+    {
+        Data.Position = newPosition;
+    }
 }
 
 public class CarData
 {
     private static readonly Random _rng = new Random();
     public int PlayerId { get; } = _rng.Next();
-    public Vector3 Position { get; } = new Vector3();
+    public Vector3 Position { get; set; } = new Vector3();
     public Quaternion Rotation { get; } = new Quaternion();
 }
