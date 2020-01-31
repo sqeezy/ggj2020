@@ -22,6 +22,7 @@ jobs:
           - src/PlaceholderProject
         unityVersion:
           - 2019.2.19f1
+          - 2019.0.0f6
         targetPlatform:
           - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
