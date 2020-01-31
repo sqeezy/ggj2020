@@ -1,0 +1,42 @@
+name: Build Unity
+
+on:
+  push
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+jobs:
+  requestManualActivationFile:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      # Request manual activation file
+      - name: Request manual activation file
+        uses: webbertakken/unity-request-manual-activation-file@master
+        id: getManualLicenseFile
+
+      # Upload artifact (Unity_v20XX.X.XXXX.alf)
+      - name: Expose as artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: Manual Activation File
+          path: ${{ steps.getManualLicenseFile.outputs.filePath }}
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Unity - Activate
+        uses: webbertakken/unity-activate@master
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      - uses: webbertakken/unity-builder@master
+        with:
+          projectPath: src/PlaceholderProject
+          unityVersion: 2019.3.0f6
+          targetPlatform: StandaloneWindows64
