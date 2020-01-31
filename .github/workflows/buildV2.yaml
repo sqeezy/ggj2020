@@ -1,45 +1,69 @@
-name: Build Unity
+name: Build 2019.3.0f6
 
 on:
-  push
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
 
 env:
-  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_201930f6 }}
 
 jobs:
-  requestManualActivationFile:
+  requestActivation:
+    name: Request activation ✔
     runs-on: ubuntu-latest
     steps:
       # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v1
 
-      # Request manual activation file
-      - name: Request manual activation file
-        uses: webbertakken/unity-request-manual-activation-file@master
-        id: getManualLicenseFile
-
-      # Upload artifact (Unity_v20XX.X.XXXX.alf)
-      - name: Expose as artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: Manual Activation File
-          path: ${{ steps.getManualLicenseFile.outputs.filePath }}
-
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v1
+      # Activate Unity
       - name: Unity - Activate
-        uses: webbertakken/unity-activate@master
+        uses: webbertakken/unity-activate@v1.1
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_201930f6 }}
+
+  buildForSomePlatforms:
+    name: Build for ${{ matrix.targetPlatform }} on version ${{ matrix.unityVersion }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        projectPath:
+          - src/PlaceholderProject
+        unityVersion:
+          - 2019.3.0f6
+        targetPlatform:
+          - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
+          - StandaloneWindows64 # Build a Windows 64-bit standalone.
+        #   - StandaloneWindows # Build a Windows standalone.
+        #   - StandaloneLinux64 # Build a Linux 64-bit standalone.
+        #   - iOS # Build an iOS player.
+        #   - Android # Build an Android .apk standalone app.
+        #   - WebGL # WebGL.
+        #   - WSAPlayer # Build an Windows Store Apps player.
+        #   - PS4 # Build a PS4 Standalone.
+        #   - XboxOne # Build a Xbox One Standalone.
+        #   - tvOS # Build to Apple's tvOS platform.
+        #   - Switch # Build a Nintendo Switch player.
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/cache@v1.1.0
         with:
-          unityVersion: 2019.2.19f1
-      - uses: webbertakken/unity-builder@master
+          path: ${{ matrix.projectPath }}/Library
+          key: Library-${{ matrix.projectPath }}-${{ matrix.targetPlatform }}
+          restore-keys: |
+            Library-${{ matrix.projectPath }}-
+            Library-
+      - uses: webbertakken/unity-builder@v0.9
         with:
-          projectPath: src/PlaceholderProject
-          unityVersion: 2019.2.19f1
-        #   unityVersion: 2019.3.0f6
-          targetPlatform: StandaloneWindows64
+          projectPath: ${{ matrix.projectPath }}
+          unityVersion: ${{ matrix.unityVersion }}
+          targetPlatform: ${{ matrix.targetPlatform }}
+      - uses: actions/upload-artifact@v1
+        with:
+          name: Build
+          path: build

@@ -1,4 +1,4 @@
-name: Acquire activation file
+name: Acquire activation file 2019.3.0f6
 on: [push]
 jobs:
   activation:
