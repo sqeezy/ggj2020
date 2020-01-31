@@ -36,7 +36,6 @@ public class MoveLikeCar : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
-
 		State.Tick();
 
 		gameObject.transform.position = State.Position;
