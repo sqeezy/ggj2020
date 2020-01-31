@@ -33,9 +33,6 @@ public class MoveLikeCar : MonoBehaviour
 		State.UpdateRotation(gameObject.transform.rotation);
 	}
 
-	private bool Down(KeyCode k) => Input.GetKeyDown(k);
-	private bool Up(KeyCode k) => Input.GetKeyUp(k);
-
 	// Update is called once per frame
 	private void Update()
 	{
