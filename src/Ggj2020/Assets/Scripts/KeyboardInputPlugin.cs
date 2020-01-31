@@ -43,12 +43,22 @@ public class KeyboardInputPlugin : IInputPlugin
 		
 		if (Input.GetKeyUp(KeyCode.UpArrow))
 		{
-			_inputDispatcher.RightArrowUp(0);
+			_inputDispatcher.ForwardArrowUp(0);
 		}
 		
 		if (Input.GetKeyDown(KeyCode.UpArrow))
 		{
-			_inputDispatcher.RightArrowUp(0);
+			_inputDispatcher.ForwardArrowDown(0);
+		}
+
+		if (Input.GetKeyUp(KeyCode.DownArrow))
+		{
+			_inputDispatcher.DownArrowUp(0);
+		}
+
+		if (Input.GetKeyDown(KeyCode.DownArrow))
+		{
+			_inputDispatcher.DownArrowDown(0);
 		}
 	}
 	

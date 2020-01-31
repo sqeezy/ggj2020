@@ -14,11 +14,16 @@ public class ProjectInstaller : MonoInstaller
 
 	private void DeclareSignals()
 	{
-		Container.DeclareSignal<InputSignals.LeftArrowUpSignal>();
-		Container.DeclareSignal<InputSignals.LeftArrowDownSignal>();
-		Container.DeclareSignal<InputSignals.RightArrowUpSignal>();
-		Container.DeclareSignal<InputSignals.RightArrowDownSignal>();
+		Container.DeclareSignal<InputSignals.LeftArrowUp>();
+		Container.DeclareSignal<InputSignals.LeftArrowDown>();
+		
+		Container.DeclareSignal<InputSignals.RightArrowUp>();
+		Container.DeclareSignal<InputSignals.RightArrowDown>();
+
 		Container.DeclareSignal<InputSignals.ForwardArrowUp>();
 		Container.DeclareSignal<InputSignals.ForwardArrowDown>();
+
+		Container.DeclareSignal<InputSignals.DownArrowUp>();
+		Container.DeclareSignal<InputSignals.DownArrowDown>();
 	}
 }

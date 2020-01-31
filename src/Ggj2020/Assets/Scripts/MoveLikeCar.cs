@@ -15,10 +15,14 @@ public class MoveLikeCar : MonoBehaviour
 	[Inject]
 	public void Init(SignalBus bus)
 	{
-		bus.Subscribe<InputSignals.LeftArrowUpSignal>(() => State.StopStearLeft());
-		bus.Subscribe<InputSignals.LeftArrowDownSignal>(() => State.StartStearLeft());
-		bus.Subscribe<InputSignals.RightArrowUpSignal>(() => State.StopStearRight());
-		bus.Subscribe<InputSignals.RightArrowDownSignal>(() => State.StartStearRight());
+		bus.Subscribe<InputSignals.LeftArrowUp>(() => State.StopStearLeft());
+		bus.Subscribe<InputSignals.LeftArrowDown>(() => State.StartStearLeft());
+		bus.Subscribe<InputSignals.RightArrowUp>(() => State.StopStearRight());
+		bus.Subscribe<InputSignals.RightArrowDown>(() => State.StartStearRight());
+		bus.Subscribe<InputSignals.ForwardArrowDown>(()=>State.StartAccelerate());
+		bus.Subscribe<InputSignals.ForwardArrowUp>(()=>State.StopAccelerate());
+		bus.Subscribe<InputSignals.DownArrowDown>(()=>State.StartBreak());
+		bus.Subscribe<InputSignals.DownArrowUp>(()=>State.StopBreak());
 	}
 
 	// Start is called before the first frame update
@@ -35,23 +39,6 @@ public class MoveLikeCar : MonoBehaviour
 	// Update is called once per frame
 	private void Update()
 	{
-		if (Input.GetKeyDown(UpArrow))
-		{
-			State.StartAccelerate();
-		}
-		if (Input.GetKeyUp(UpArrow))
-		{
-			State.StopAccelerate();
-		}
-
-		if (Input.GetKeyDown(DownArrow))
-		{
-			State.StartBreak();
-		}
-		if (Input.GetKeyUp(DownArrow))
-		{
-			State.StopBreak();
-		}
 
 		State.Tick();
 
