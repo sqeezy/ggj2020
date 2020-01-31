@@ -16,7 +16,7 @@ public class ProjectInstaller : MonoInstaller
 	{
 		Container.DeclareSignal<InputSignals.LeftArrowUp>();
 		Container.DeclareSignal<InputSignals.LeftArrowDown>();
-		
+
 		Container.DeclareSignal<InputSignals.RightArrowUp>();
 		Container.DeclareSignal<InputSignals.RightArrowDown>();
 
