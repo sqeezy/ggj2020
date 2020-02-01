@@ -9,11 +9,10 @@ public class CarData
 	public event Action DataChanged = () => { };
 	private static readonly Random Rng = new Random();
 	private Vector3 _position;
-	private Vector3 _rotationVelocity;
 	private float _velocity;
 	private CarAcceleration _acceleration;
 	private CarStearing _stearing;
-	private float _rotVelo;
+	private float _rotationVelocity;
 	public int PlayerId { get; } = Rng.Next();
 
 	public Vector3 Position
@@ -26,15 +25,13 @@ public class CarData
 		}
 	}
 
-	public float RotVelo
+	public float RotationVelocity
 	{
-		get => _rotVelo;
+		get => _rotationVelocity;
 		set
 		{
-			_rotationVelocity.z = value;
-			_rotationVelocity.x = 0;
-			_rotationVelocity.y = 0;
-			_rotVelo = value;
+			_rotationVelocity = value;
+			DataChanged();
 		}
 	}
 

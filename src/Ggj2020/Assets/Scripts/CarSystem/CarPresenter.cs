@@ -30,7 +30,7 @@ public class CarPresenter : MonoBehaviour
 	{
 		var go = gameObject;
 
-		var rotateDelta = _observedData.RotVelo * _timeProvider.DeltaTime;
+		var rotateDelta = _observedData.RotationVelocity * _timeProvider.DeltaTime;
 		go.transform.RotateAround(_body.position, Vector3.forward, rotateDelta);
 
 		var moveDelta = go.transform.rotation * (_observedData.Velocity * _timeProvider.DeltaTime * CarModel.Forward);
