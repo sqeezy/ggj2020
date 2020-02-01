@@ -19,7 +19,7 @@ public class TestInputReceiver : MonoBehaviour
 		
 	}
 
-	private void UpdateText(int playerId, string text)
+	private void UpdateText(string playerId, string text)
 	{
 		TextToShow.text = string.Format("Key: {0}, Player: {1}", text, playerId) ;
 	}

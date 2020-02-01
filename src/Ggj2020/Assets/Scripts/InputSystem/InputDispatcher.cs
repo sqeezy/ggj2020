@@ -11,48 +11,48 @@ public class InputDispatcher : IInputDispatcher
 		_signalBus = signalBus;
 	}
 
-	public void LeftArrowDown(int playerId)
+	public void LeftArrowDown(string playerId)
 	{
 		_signalBus.Fire(new InputSignal.LeftArrowDown(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
-	public void LeftArrowUp(int playerId)
+	public void LeftArrowUp(string playerId)
 	{
 		_signalBus.Fire(new InputSignal.LeftArrowUp(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
-	public void RightArrowDown(int playerId)
+	public void RightArrowDown(string playerId)
 	{
 		_signalBus.Fire(new InputSignal.RightArrowDown(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
-	public void RightArrowUp(int playerId)
+	public void RightArrowUp(string playerId)
 	{
 		_signalBus.Fire(new InputSignal.RightArrowUp(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
-	public void ForwardArrowUp(int playerId)
+	public void ForwardArrowUp(string playerId)
 	{
 		_signalBus.Fire(new InputSignal.ForwardArrowUp(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
-	public void ForwardArrowDown(int playerId)
+	public void ForwardArrowDown(string playerId)
 	{
 		_signalBus.Fire(new InputSignal.ForwardArrowDown(playerId));
 	}
 
-	public void DownArrowUp(int playerId)
+	public void DownArrowUp(string playerId)
 	{
 		_signalBus.Fire(new InputSignal.DownArrowUp(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
-	public void DownArrowDown(int playerId)
+	public void DownArrowDown(string playerId)
 	{
 		_signalBus.Fire(new InputSignal.DownArrowDown(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
@@ -61,23 +61,23 @@ public class InputDispatcher : IInputDispatcher
 
 public interface IInputDispatcher
 {
-	void LeftArrowDown(int playerId);
-	void LeftArrowUp(int playerId);
-	void RightArrowDown(int playerId);
-	void RightArrowUp(int playerId);
-	void ForwardArrowUp(int playerId);
-	void ForwardArrowDown(int playerId);
-	void DownArrowUp(int playerId);
-	void DownArrowDown(int playerId);
+	void LeftArrowDown(string playerId);
+	void LeftArrowUp(string playerId);
+	void RightArrowDown(string playerId);
+	void RightArrowUp(string playerId);
+	void ForwardArrowUp(string playerId);
+	void ForwardArrowDown(string playerId);
+	void DownArrowUp(string playerId);
+	void DownArrowDown(string playerId);
 }
 
 public class GameSignals
 {
 	public class PlayerActionTriggered
 	{
-		public readonly int PlayerId;
+		public readonly string PlayerId;
 
-		public PlayerActionTriggered(int playerId)
+		public PlayerActionTriggered(string playerId)
 		{
 			PlayerId = playerId;
 		}
@@ -86,65 +86,65 @@ public class GameSignals
 
 public class InputSignal
 {
-	public readonly int PlayerId;
+	public readonly string PlayerId;
 
-	public InputSignal(int playerId)
+	public InputSignal(string playerId)
 	{
 		PlayerId = playerId;
 	}
 
 	public class LeftArrowDown : InputSignal
 	{
-		public LeftArrowDown(int playerId) : base(playerId)
+		public LeftArrowDown(string playerId) : base(playerId)
 		{
 		}
 	}
 
 	public class LeftArrowUp : InputSignal
 	{
-		public LeftArrowUp(int playerId) : base(playerId)
+		public LeftArrowUp(string playerId) : base(playerId)
 		{
 		}
 	}
 
 	public class RightArrowDown : InputSignal
 	{
-		public RightArrowDown(int playerId) : base(playerId)
+		public RightArrowDown(string playerId) : base(playerId)
 		{
 		}
 	}
 
 	public class RightArrowUp : InputSignal
 	{
-		public RightArrowUp(int playerId) : base(playerId)
+		public RightArrowUp(string playerId) : base(playerId)
 		{
 		}
 	}
 
 	public class ForwardArrowUp : InputSignal
 	{
-		public ForwardArrowUp(int playerId) : base(playerId)
+		public ForwardArrowUp(string playerId) : base(playerId)
 		{
 		}
 	}
 
 	public class ForwardArrowDown : InputSignal
 	{
-		public ForwardArrowDown(int playerId) : base(playerId)
+		public ForwardArrowDown(string playerId) : base(playerId)
 		{
 		}
 	}
 
 	public class DownArrowDown : InputSignal
 	{
-		public DownArrowDown(int playerId) : base(playerId)
+		public DownArrowDown(string playerId) : base(playerId)
 		{
 		}
 	}
 
 	public class DownArrowUp : InputSignal
 	{
-		public DownArrowUp(int playerId) : base(playerId)
+		public DownArrowUp(string playerId) : base(playerId)
 		{
 		}
 	}
