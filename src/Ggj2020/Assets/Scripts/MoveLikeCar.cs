@@ -37,9 +37,10 @@ public class MoveLikeCar : MonoBehaviour
 	private void Update()
 	{
 		State.Tick();
-		// var moveVector = State.Position - gameObject.transform.position;
-		// _body.velocity = new Vector2(moveVector.x, moveVector.z);
-		gameObject.transform.position = State.Position;
+		var moveVector = State.Position - gameObject.transform.position;
+		_body.velocity = new Vector2(moveVector.x, moveVector.y);
+		// _body.AddForce(new Vector2(moveVector.x, moveVector.y));
+		// gameObject.transform.position = State.Position;
 		gameObject.transform.rotation = Quaternion.Euler(State.Rotation);
 	}
 }

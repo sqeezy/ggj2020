@@ -12,7 +12,7 @@ public class FollowTarget : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         var targetTranformPosition = TargetTranform.position;
         var gameObjectTransform = gameObject.transform;

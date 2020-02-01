@@ -125,10 +125,10 @@ public class Car
 		switch (Data.Stearing)
 		{
 			case CarStearing.Left:
-				Rotate(-_stearingVector);
+				Rotate(-_stearingVector * Data.Velocity);
 				break;
 			case CarStearing.Right:
-				Rotate(_stearingVector);
+				Rotate(_stearingVector * Data.Velocity);
 				break;
 			case CarStearing.None:
 				break;
