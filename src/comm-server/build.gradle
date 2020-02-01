@@ -26,6 +26,16 @@ test {
 }
 
 
+tasks.withType(ProcessResources) {
+	outputs.upToDateWhen { false }
+	doLast {
+		copy {
+			from '../Ggj2020/build/'
+			into 'src/main/resources/static/'
+		}
+	}
+}
+
 bootJar {
 	archiveFileName = "comm-server.jar"
 }
