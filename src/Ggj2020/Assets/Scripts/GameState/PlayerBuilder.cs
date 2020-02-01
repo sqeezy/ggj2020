@@ -11,7 +11,7 @@ public class PlayerBuilder : IPlayerBuilder
 	{
 		_diContainer = diContainer;
 	}
-	public PlayerConfiguration CreatePlayer(int playerId)
+	public PlayerConfiguration CreatePlayer(string playerId)
 	{
 		return _diContainer.Instantiate<PlayerConfiguration>(new List<object> {playerId});
 	}
@@ -25,7 +25,7 @@ public class PlayerConfiguration
 	private CarModel _carModel;
 	
 
-	public PlayerConfiguration(DiContainer diContainer,IAssetService assetService,  int playerId)
+	public PlayerConfiguration(DiContainer diContainer,IAssetService assetService,  string playerId)
 	{
 		_diContainer = diContainer;
 		_assetService = assetService;
@@ -40,7 +40,6 @@ public class PlayerConfiguration
 
 		var pos = carPresenter.transform.position;
 		
-		pos.x = _data.CarData.Position.x + 10 * _data.PlayerId;
 		carPresenter.transform.position = pos;
 		_carModel.UpdatePosition(_data.CarData.Position);
 		return this;
@@ -54,7 +53,7 @@ public class PlayerConfiguration
 
 public interface IPlayerBuilder
 {
-	PlayerConfiguration CreatePlayer(int playerId);
+	PlayerConfiguration CreatePlayer(string playerId);
 
 }
 
