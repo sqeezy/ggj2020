@@ -1,4 +1,3 @@
-﻿using System;
 using UnityEngine;
 using Zenject;
 
@@ -37,5 +36,13 @@ public class CarPresenter : MonoBehaviour
 
 		var moveDelta = go.transform.rotation * (_observedData.Velocity * _timeProvider.DeltaTime * CarModel.Forward);
 		_body.velocity = moveDelta;
+	}
+
+	private void OnCollisionEnter(Collision other)
+	{
+		foreach (ContactPoint contact in other.contacts)
+		{
+			Debug.Log(string.Format("Hit object: {0}", contact.thisCollider.gameObject.name));
+		}
 	}
 }
