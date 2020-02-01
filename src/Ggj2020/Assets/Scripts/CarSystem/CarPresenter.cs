@@ -30,14 +30,12 @@ public class CarPresenter : MonoBehaviour
 
 	public void LateUpdate()
 	{
-		var timeWeightedRotationDelta = _observedData.RotDelta * _timeProvider.DeltaTime;
-		var timeWeightedRotationDeltaVector = _observedData.RotationDelta* _timeProvider.DeltaTime;
-		var rotationDeltaEuler = Quaternion.Euler(timeWeightedRotationDeltaVector);
+		var go = gameObject;
 
-		gameObject.transform.RotateAround(_body.position, Vector3.forward, timeWeightedRotationDelta);
+		var rotateDelta = _observedData.RotVelo * _timeProvider.DeltaTime;
+		go.transform.RotateAround(_body.position, Vector3.forward, rotateDelta);
 
-		var forwardWithoutRotation = _observedData.Velocity * _timeProvider.DeltaTime * CarModel.Forward;
-		var forwardWithRotation = rotationDeltaEuler * forwardWithoutRotation ;
-		_body.velocity = forwardWithRotation;
+		var moveDelta = go.transform.rotation * (_observedData.Velocity * _timeProvider.DeltaTime * CarModel.Forward);
+		_body.velocity = moveDelta;
 	}
 }

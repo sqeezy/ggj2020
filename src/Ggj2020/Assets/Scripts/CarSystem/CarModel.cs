@@ -15,7 +15,7 @@ public class CarModel
 
 	public int PlayerId => _data.PlayerId;
 	public Vector3 Position => _data.Position;
-	public Vector3 Rotation => _data.RotationDelta;
+	public Vector3 Rotation => _data.RotationVelocity;
 
 	public CarModel(CarData data)
 	{
@@ -78,12 +78,12 @@ public class CarModel
 		}
 	}
 
-	private void Rotate(float stearingDelta)
+	private void UpdateRotationVelocity(float stearingDelta)
 	{
-		var currentAngle = _data.RotationDelta;
+		var currentAngle = _data.RotationVelocity;
 		var cleanAngles = new Vector3(0, 0, (currentAngle.z + stearingDelta) % 360);
-		_data.RotationDelta = cleanAngles;
-		_data.RotDelta = cleanAngles.z;
+		_data.RotationVelocity = cleanAngles;
+		_data.RotVelo = cleanAngles.z;
 	}
 
 	public void UpdatePosition(Vector3 newPosition)
@@ -93,7 +93,7 @@ public class CarModel
 
 	public void UpdateRotation(Quaternion transformRotation)
 	{
-		_data.RotationDelta = transformRotation.eulerAngles;
+		_data.RotationVelocity = transformRotation.eulerAngles;
 	}
 
 	public void Tick()
@@ -105,7 +105,7 @@ public class CarModel
 
 	private void ApplyAcceleration()
 	{
-		var rotation = Quaternion.Euler(0, 0, _data.RotationDelta.z);
+		var rotation = Quaternion.Euler(0, 0, _data.RotationVelocity.z);
 		_data.Position += _data.Velocity * (rotation * Forward);
 	}
 
@@ -131,13 +131,14 @@ public class CarModel
 	{
 		switch (_data.Stearing)
 		{
+			case CarStearing.None:
+				UpdateRotationVelocity(-_data.RotVelo * 0.999f);
+				break;
 			case CarStearing.Left:
-				Rotate(-StearingFactor);
+				UpdateRotationVelocity(-StearingFactor);
 				break;
 			case CarStearing.Right:
-				Rotate(StearingFactor);
-				break;
-			case CarStearing.None:
+				UpdateRotationVelocity(StearingFactor);
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();
