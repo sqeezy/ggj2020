@@ -79,7 +79,7 @@ public class CarModel
 
 	private void UpdateRotationVelocity(float stearingDelta)
 	{
-		_data.RotationVelocity = (_data.RotationVelocity + stearingDelta) % 360;
+		_data.SetRotationVelocity((_data.RotationVelocity + stearingDelta) % 360);
 	}
 
 	public void UpdatePosition(Vector3 newPosition)

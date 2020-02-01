@@ -12,7 +12,7 @@ public class CarData
 	public float Velocity;
 	public CarAcceleration Acceleration;
 	public CarStearing Stearing;
-	private float _rotationVelocity;
+	public float RotationVelocity;
 	public int PlayerId { get; } = Rng.Next();
 
 	public void SetPosition(Vector3 newPosition)
@@ -21,14 +21,10 @@ public class CarData
 		DataChanged();
 	}
 
-	public float RotationVelocity
+	public void SetRotationVelocity(float newRotVelo)
 	{
-		get => _rotationVelocity;
-		set
-		{
-			_rotationVelocity = value;
-			DataChanged();
-		}
+		RotationVelocity = newRotVelo;
+		DataChanged();
 	}
 
 	public void SetVelocity(float newVelocity)
