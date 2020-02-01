@@ -27,7 +27,11 @@ public class WebSocketService
 		var fullUri = new Uri(baseUri, WEBSOCKET_URL_PATH);
 		Debug.Log("Trying to connect to " + fullUri);
 
-		_webSocket = WebSocketFactory.CreateInstance(fullUri.ToString());
+		var url = fullUri.ToString();
+		//uncomment following line to connect to the deployed server
+//		url = "ws://ggj.sqeezy.tech/socket";
+		
+		_webSocket = WebSocketFactory.CreateInstance(url);
 
 		_webSocket.OnOpen += OnOpen;
 		_webSocket.OnMessage += OnMessage;

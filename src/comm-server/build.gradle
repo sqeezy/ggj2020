@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.innogames.jam2020'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+targetCompatibility = sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
 	mavenCentral()
@@ -25,6 +25,16 @@ test {
 	useJUnitPlatform()
 }
 
+
+tasks.withType(ProcessResources) {
+	outputs.upToDateWhen { false }
+	doLast {
+		copy {
+			from '../Ggj2020/build/'
+			into 'src/main/resources/static/'
+		}
+	}
+}
 
 bootJar {
 	archiveFileName = "comm-server.jar"
