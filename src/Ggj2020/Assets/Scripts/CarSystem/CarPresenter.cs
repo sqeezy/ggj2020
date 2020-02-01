@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Runtime.CompilerServices;
-using UnityEditor.Rendering;
+﻿
 using UnityEngine;
 using Zenject;
-using static UnityEngine.KeyCode;
+
 
 public class CarPresenter : MonoBehaviour
 {
