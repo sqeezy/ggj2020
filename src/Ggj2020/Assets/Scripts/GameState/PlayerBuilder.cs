@@ -37,6 +37,11 @@ public class PlayerConfiguration
 		_carModel = new CarModel(_data.CarData);
 		var carPresenter = _assetService.GetAssetInstance(AssetCatalogue.Car01).GetComponent<CarPresenter>();
 		carPresenter.Init(_data.CarData);
+
+		var pos = carPresenter.transform.position;
+		
+		pos.x = _data.CarData.Position.x + 10 * _data.PlayerId;
+		carPresenter.transform.position = pos;
 		_carModel.UpdatePosition(_data.CarData.Position);
 		return this;
 	}
