@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data.Common;
 using UnityEditor;
 using UnityEngine;
-using Random = System.Random;
 
 public class Car
 {
@@ -133,31 +132,8 @@ public class Car
 				break;
 			case CarStearing.None:
 				break;
+			default:
+				throw new ArgumentOutOfRangeException();
 		}
 	}
-}
-
-public enum CarStearing
-{
-	None,
-	Left,
-	Right
-}
-
-public enum CarAcceleration
-{
-	None,
-	Forward,
-	Backward
-}
-
-public class CarData
-{
-	private static readonly Random _rng = new Random();
-	public int PlayerId { get; } = _rng.Next();
-	public Vector3 Position { get; set; }
-	public Vector3 Rotation { get; set; }
-	public float Velocity { get; set; }
-	public CarAcceleration Acceleration { get; set; }
-	public CarStearing Stearing { get; set; }
 }
