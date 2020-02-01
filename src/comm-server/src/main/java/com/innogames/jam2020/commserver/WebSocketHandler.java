@@ -3,6 +3,7 @@ package com.innogames.jam2020.commserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.BinaryMessage;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
@@ -13,6 +14,16 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 
 	private static final Logger log = LoggerFactory.getLogger(WebSocketHandler.class);
 
+
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) {
+		log.debug("Client connected, session id {} from {}", session.getId(), session.getRemoteAddress());
+	}
+
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
+		log.debug("Client disconnected, session id {} from {}", session.getId(), session.getRemoteAddress());
+	}
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
