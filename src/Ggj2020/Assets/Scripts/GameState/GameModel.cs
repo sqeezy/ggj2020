@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class GameModel
+public class GameModel : ITickable
 {
 	private readonly SignalBus _signalBus;
 	private readonly IPlayerBuilder _playerBuilder;
@@ -27,6 +27,14 @@ public class GameModel
 		{
 			var player = _playerBuilder.CreatePlayer(playerId).Configure().Build();
 			_registeredPlayers.Add(playerId, player);
+		}
+	}
+
+	public void Tick()
+	{
+		foreach (PlayerModel model in _registeredPlayers.Values)
+		{
+			model.Tick();
 		}
 	}
 }

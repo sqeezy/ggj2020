@@ -86,12 +86,22 @@ public class KeyboardInputPlugin : IInputPlugin
 		
 		if (Input.GetKeyUp(KeyCode.W))
 		{
-			_inputDispatcher.RightArrowUp(1);
+			_inputDispatcher.ForwardArrowUp(1);
 		}
 		
 		if (Input.GetKeyDown(KeyCode.W))
 		{
-			_inputDispatcher.RightArrowUp(1);
+			_inputDispatcher.ForwardArrowDown(1);
+		}
+
+		if (Input.GetKeyUp(KeyCode.S))
+		{
+			_inputDispatcher.DownArrowUp(1);
+		}
+
+		if (Input.GetKeyDown(KeyCode.S))
+		{
+			_inputDispatcher.DownArrowDown(1);
 		}
 	}
 }

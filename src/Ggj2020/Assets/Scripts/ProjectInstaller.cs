@@ -13,7 +13,7 @@ public class ProjectInstaller : MonoInstaller
 		Container.Bind<CoroutineProvider>().FromNewComponentOnNewGameObject().AsSingle();
 		Container.Bind<IGameStateFactory>().To<GameStateFactory>().AsSingle();
 		Container.Bind<IInitializable>().To<Main>().AsSingle();
-		Container.Bind<GameModel>().AsSingle();
+		Container.BindInterfacesAndSelfTo<GameModel>().AsSingle();
 		Container.Bind<IPlayerBuilder>().To<PlayerBuilder>().AsSingle();
 		DeclareSignals();
 	}

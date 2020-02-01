@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class PlayerModel 
+public class PlayerModel : ITickable
 {
 	private readonly SignalBus _signalBus;
 	private readonly PlayerData _playerData;
@@ -32,5 +32,10 @@ public class PlayerModel
 		{
 			triggerAction();
 		}
+	}
+
+	public void Tick()
+	{
+		_carModel.Tick();
 	}
 }
