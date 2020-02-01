@@ -5,24 +5,29 @@ using System.Data.Common;
 using UnityEditor;
 using UnityEngine;
 
-public class Car
+public class CarModel
 {
+	private readonly CarData _data;
 	private readonly Vector3 _stearingVector = new Vector3(0, 1.5f, 0);
 	private float _velocityChange = 0.01f;
 	private readonly Vector3 _forward = new Vector3(0, 0, 1);
-	private CarData Data { get; } = new CarData();
-	public int PlayerId => Data.PlayerId;
-	public Vector3 Position => Data.Position;
-	public Vector3 Rotation => Data.Rotation;
+	
+	public int PlayerId => _data.PlayerId;
+	public Vector3 Position => _data.Position;
+	public Vector3 Rotation => _data.Rotation;
 
+	public CarModel(CarData data)
+	{
+		_data = data;
+	}
 	public void StartStearLeft()
 	{
-		Data.Stearing = CarStearing.Left;
+		_data.Stearing = CarStearing.Left;
 	}
 
 	public void StartStearRight()
 	{
-		Data.Stearing = CarStearing.Right;
+		_data.Stearing = CarStearing.Right;
 	}
 
 	public void StopStearLeft()
@@ -37,7 +42,7 @@ public class Car
 
 	public void StartAccelerate()
 	{
-		Data.Acceleration = CarAcceleration.Forward;
+		_data.Acceleration = CarAcceleration.Forward;
 	}
 
 	public void StopAccelerate()
@@ -47,7 +52,7 @@ public class Car
 
 	public void StartBreak()
 	{
-		Data.Acceleration = CarAcceleration.Backward;
+		_data.Acceleration = CarAcceleration.Backward;
 	}
 
 	public void StopBreak()
@@ -57,36 +62,36 @@ public class Car
 
 	private void InvalidateAcceleration(CarAcceleration carAcceleration)
 	{
-		if (Data.Acceleration == carAcceleration)
+		if (_data.Acceleration == carAcceleration)
 		{
-			Data.Acceleration = CarAcceleration.None;
+			_data.Acceleration = CarAcceleration.None;
 		}
 	}
 
 	private void InvalidateStearing(CarStearing carStearing)
 	{
-		if (Data.Stearing == carStearing)
+		if (_data.Stearing == carStearing)
 		{
-			Data.Stearing = CarStearing.None;
+			_data.Stearing = CarStearing.None;
 		}
 	}
 
 	private void Rotate(Vector3 stearingVector)
 	{
-		var angles = Data.Rotation;
+		var angles = _data.Rotation;
 		var newAngles = angles + stearingVector;
-		Data.Rotation = newAngles;
+		_data.Rotation = newAngles;
 	}
 
 
 	public void UpdatePosition(Vector3 newPosition)
 	{
-		Data.Position = newPosition;
+		_data.Position = newPosition;
 	}
 
 	public void UpdateRotation(Quaternion transformRotation)
 	{
-		Data.Rotation = transformRotation.eulerAngles;
+		_data.Rotation = transformRotation.eulerAngles;
 	}
 
 	public void Tick()
@@ -98,22 +103,22 @@ public class Car
 
 	private void ApplyAcceleration()
 	{
-		var rotation = Quaternion.Euler(0, Data.Rotation.y, 0);
-		Data.Position += Data.Velocity * (rotation * _forward);
+		var rotation = Quaternion.Euler(0, _data.Rotation.y, 0);
+		_data.Position += _data.Velocity * (rotation * _forward);
 	}
 
 	private void UpdateAccelaration()
 	{
-		switch (Data.Acceleration)
+		switch (_data.Acceleration)
 		{
 			case CarAcceleration.None:
-				Data.Velocity *= 0.99f;
+				_data.Velocity *= 0.99f;
 				break;
 			case CarAcceleration.Forward:
-				Data.Velocity += _velocityChange;
+				_data.Velocity += _velocityChange;
 				break;
 			case CarAcceleration.Backward:
-				Data.Velocity -= _velocityChange;
+				_data.Velocity -= _velocityChange;
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();
@@ -122,7 +127,7 @@ public class Car
 
 	private void ApplyStearing()
 	{
-		switch (Data.Stearing)
+		switch (_data.Stearing)
 		{
 			case CarStearing.Left:
 				Rotate(-_stearingVector);

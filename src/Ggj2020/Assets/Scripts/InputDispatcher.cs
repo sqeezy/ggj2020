@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Runtime.CompilerServices;
+using UnityEngine;
 using Zenject;
 
 public class InputDispatcher : IInputDispatcher
@@ -9,44 +10,52 @@ public class InputDispatcher : IInputDispatcher
 	{
 		_signalBus = signalBus;
 	}
+
 	public void LeftArrowDown(int playerId)
 	{
-		_signalBus.Fire(new InputSignals.LeftArrowDown(playerId));
+		_signalBus.Fire(new InputSignal.LeftArrowDown(playerId));
+		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void LeftArrowUp(int playerId)
 	{
-		_signalBus.Fire(new InputSignals.LeftArrowUp(playerId));
+		_signalBus.Fire(new InputSignal.LeftArrowUp(playerId));
+		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void RightArrowDown(int playerId)
 	{
-		_signalBus.Fire(new InputSignals.RightArrowDown(playerId));
+		_signalBus.Fire(new InputSignal.RightArrowDown(playerId));
+		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void RightArrowUp(int playerId)
 	{
-		_signalBus.Fire(new InputSignals.RightArrowUp(playerId));
+		_signalBus.Fire(new InputSignal.RightArrowUp(playerId));
+		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void ForwardArrowUp(int playerId)
 	{
-		_signalBus.Fire(new InputSignals.ForwardArrowUp(playerId));
+		_signalBus.Fire(new InputSignal.ForwardArrowUp(playerId));
+		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void ForwardArrowDown(int playerId)
 	{
-		_signalBus.Fire(new InputSignals.ForwardArrowDown(playerId));
+		_signalBus.Fire(new InputSignal.ForwardArrowDown(playerId));
 	}
 
 	public void DownArrowUp(int playerId)
 	{
-		_signalBus.Fire(new InputSignals.DownArrowUp(playerId));
+		_signalBus.Fire(new InputSignal.DownArrowUp(playerId));
+		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void DownArrowDown(int playerId)
 	{
-		_signalBus.Fire(new InputSignals.DownArrowDown(playerId));
+		_signalBus.Fire(new InputSignal.DownArrowDown(playerId));
+		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 }
 
@@ -62,85 +71,81 @@ public interface IInputDispatcher
 	void DownArrowDown(int playerId);
 }
 
-public class InputSignals
+public class GameSignals
 {
-	public class LeftArrowDown
+	public class PlayerActionTriggered
 	{
 		public readonly int PlayerId;
 
-		public LeftArrowDown(int playerId)
+		public PlayerActionTriggered(int playerId)
 		{
 			PlayerId = playerId;
 		}
 	}
+}
 
-	public class LeftArrowUp
+public class InputSignal
+{
+	public readonly int PlayerId;
+
+	public InputSignal(int playerId)
 	{
-		public readonly int PlayerId;
+		PlayerId = playerId;
+	}
 
-		public LeftArrowUp(int playerId)
+	public class LeftArrowDown : InputSignal
+	{
+		public LeftArrowDown(int playerId) : base(playerId)
 		{
-			PlayerId = playerId;
 		}
 	}
 
-	public class RightArrowDown
+	public class LeftArrowUp : InputSignal
 	{
-		public readonly int PlayerId;
-
-		public RightArrowDown(int playerId)
+		public LeftArrowUp(int playerId) : base(playerId)
 		{
-			PlayerId = playerId;
 		}
 	}
 
-	public class RightArrowUp
+	public class RightArrowDown : InputSignal
 	{
-		public readonly int PlayerId;
-
-		public RightArrowUp(int playerId)
+		public RightArrowDown(int playerId) : base(playerId)
 		{
-			PlayerId = playerId;
 		}
 	}
 
-	public class ForwardArrowUp
+	public class RightArrowUp : InputSignal
 	{
-		public readonly int PlayerId;
-
-		public ForwardArrowUp(int playerId)
+		public RightArrowUp(int playerId) : base(playerId)
 		{
-			PlayerId = playerId;
-		}
-	}
-	
-	public class ForwardArrowDown
-	{
-		public readonly int PlayerId;
-
-		public ForwardArrowDown(int playerId)
-		{
-			PlayerId = playerId;
 		}
 	}
 
-	public class DownArrowDown
+	public class ForwardArrowUp : InputSignal
 	{
-		public readonly int PlayerId;
-
-		public DownArrowDown(int playerId)
+		public ForwardArrowUp(int playerId) : base(playerId)
 		{
-			PlayerId = playerId;
 		}
 	}
 
-	public class DownArrowUp
+	public class ForwardArrowDown : InputSignal
 	{
-		public readonly int PlayerId;
-
-		public DownArrowUp(int playerId)
+		public ForwardArrowDown(int playerId) : base(playerId)
 		{
-			PlayerId = playerId;
+		}
+	}
+
+	public class DownArrowDown : InputSignal
+	{
+		public DownArrowDown(int playerId) : base(playerId)
+		{
+		}
+	}
+
+	public class DownArrowUp : InputSignal
+	{
+		public DownArrowUp(int playerId) : base(playerId)
+		{
 		}
 	}
 }
