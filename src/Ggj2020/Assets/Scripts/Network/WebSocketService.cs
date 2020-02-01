@@ -49,7 +49,7 @@ public class WebSocketService
 
 	private static void OnError(string errMsg)
 	{
-		Debug.LogError("WS error: " + errMsg);
+		Debug.Log("WS error: " + errMsg);
 	}
 
 	private void OnClose(WebSocketCloseCode code)
