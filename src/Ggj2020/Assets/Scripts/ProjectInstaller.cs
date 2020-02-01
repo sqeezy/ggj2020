@@ -21,18 +21,18 @@ public class ProjectInstaller : MonoInstaller
 
 	private void DeclareSignals()
 	{
-		Container.DeclareSignal<InputSignal.LeftArrowUp>();
-		Container.DeclareSignal<InputSignal.LeftArrowDown>();
+		Container.DeclareSignal<InputSignal.LeftArrowUp>().OptionalSubscriber();
+		Container.DeclareSignal<InputSignal.LeftArrowDown>().OptionalSubscriber();
 
-		Container.DeclareSignal<InputSignal.RightArrowUp>();
-		Container.DeclareSignal<InputSignal.RightArrowDown>();
+		Container.DeclareSignal<InputSignal.RightArrowUp>().OptionalSubscriber();
+		Container.DeclareSignal<InputSignal.RightArrowDown>().OptionalSubscriber();
 
-		Container.DeclareSignal<InputSignal.ForwardArrowUp>();
-		Container.DeclareSignal<InputSignal.ForwardArrowDown>();
+		Container.DeclareSignal<InputSignal.ForwardArrowUp>().OptionalSubscriber();
+		Container.DeclareSignal<InputSignal.ForwardArrowDown>().OptionalSubscriber();
 
-		Container.DeclareSignal<InputSignal.DownArrowUp>();
-		Container.DeclareSignal<InputSignal.DownArrowDown>();
+		Container.DeclareSignal<InputSignal.DownArrowUp>().OptionalSubscriber();
+		Container.DeclareSignal<InputSignal.DownArrowDown>().OptionalSubscriber();
 
-		Container.DeclareSignal<GameSignals.PlayerActionTriggered>();
+		Container.DeclareSignal<GameSignals.PlayerActionTriggered>().OptionalSubscriber();
 	}
 }
