@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
+using GenericProvider;
 using UnityEngine;
 using HybridWebSocket;
 using Zenject;
@@ -10,12 +12,14 @@ public class WebSocketService
 {
 	private const string SERVER_ADDRESS = "ws://localhost:8080/socket";
 	private readonly SignalBus _signalBus;
+	private readonly MainThreadQueue _mainThreadQueue;
 	private readonly WebSocket _webSocket;
 
-	public WebSocketService(SignalBus signalBus)
+	public WebSocketService(SignalBus signalBus, MainThreadQueue mainThreadQueue)
 	{
 		Debug.Log("WebSocketService ahoy!");
 		_signalBus = signalBus;
+		_mainThreadQueue = mainThreadQueue;
 
 		_webSocket = WebSocketFactory.CreateInstance(SERVER_ADDRESS);
 
@@ -25,6 +29,18 @@ public class WebSocketService
 		_webSocket.OnClose += OnClose;
 
 		Connect();
+	}
+
+	public void Send(string message)
+	{
+		try
+		{
+			_webSocket.Send(ToBytes(message));
+		}
+		catch (Exception e)
+		{
+			Debug.Log("Failed to send " + message + " " + e.Message);
+		}
 	}
 
 	private void Connect()
@@ -38,13 +54,26 @@ public class WebSocketService
 	{
 		Debug.Log("WS connected!");
 		Debug.Log("WS state: " + _webSocket.GetState());
-
-		_webSocket.Send(Encoding.UTF8.GetBytes("Hello from Unity 3D!"));
 	}
 
 	private void OnMessage(byte[] msg)
 	{
-		Debug.Log("WS received message: " + Encoding.UTF8.GetString(msg));
+		var message = ToString(msg);
+		Debug.Log("WS received message: " + message);
+
+		_mainThreadQueue.enqueueAction(() =>
+			{
+				try
+				{
+					var inputSignal = InputSignal.FromJson(message);
+					_signalBus.Fire(inputSignal);
+					_signalBus.Fire(new GameSignals.PlayerActionTriggered(inputSignal.PlayerId));
+				}
+				catch (Exception e)
+				{
+					Debug.Log("Failed to process " + message + " " + e.Message);
+				}
+			});
 	}
 
 	private static void OnError(string errMsg)
@@ -57,5 +86,16 @@ public class WebSocketService
 		Debug.Log("WS closed with code: " + code.ToString());
 		//always reconnect
 		Connect();
+	}
+
+	private static byte[] ToBytes(string input)
+	{
+		return Encoding.UTF8.GetBytes(input);
+	}
+
+
+	private static string ToString(byte[] input)
+	{
+		return Encoding.UTF8.GetString(input);
 	}
 }

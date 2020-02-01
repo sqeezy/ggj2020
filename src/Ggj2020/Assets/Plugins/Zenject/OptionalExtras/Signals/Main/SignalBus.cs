@@ -77,7 +77,7 @@ namespace Zenject
         public void FireId<TSignal>(object identifier, TSignal signal)
         {
             // Do this before creating the signal so that it throws if the signal was not declared
-            var declaration = GetDeclaration(typeof(TSignal), identifier, true);
+            var declaration = GetDeclaration(signal.GetType(), identifier, true);
 
             declaration.Fire(signal);
         }

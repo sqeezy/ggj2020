@@ -1,3 +1,4 @@
+using GenericProvider;
 using UnityEngine;
 using Zenject;
 
@@ -17,6 +18,7 @@ public class ProjectInstaller : MonoInstaller
 		Container.Bind<IPlayerBuilder>().To<PlayerBuilder>().AsSingle();
 		Container.Bind<ITimeProvider>().To<TimeProvider>().AsSingle();
 		Container.Bind<WebSocketService>().AsSingle();
+		Container.BindInterfacesAndSelfTo<MainThreadQueue>().AsSingle();
 		DeclareSignals();
 	}
 

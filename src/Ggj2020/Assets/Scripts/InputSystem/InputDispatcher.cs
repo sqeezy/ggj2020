@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Zenject;
 
@@ -99,6 +100,19 @@ public class GameSignals
 	}
 }
 
+[Serializable]
+public class NetworkEvent
+{
+	public string PlayerId;
+	public string EventType;
+
+	public NetworkEvent(string playerId, string eventType)
+	{
+		PlayerId = playerId;
+		EventType = eventType;
+	}
+}
+
 public class InputSignal
 {
 	public readonly string PlayerId;
@@ -106,6 +120,19 @@ public class InputSignal
 	public InputSignal(string playerId)
 	{
 		PlayerId = playerId;
+	}
+
+	public string ToJson()
+	{
+		var networkEvent = new NetworkEvent(PlayerId, this.GetType().ToString());
+		return JsonUtility.ToJson(networkEvent);
+	}
+
+	public static InputSignal FromJson(string input)
+	{
+		var networkEvent = JsonUtility.FromJson<NetworkEvent>(input);
+		var t = Type.GetType(networkEvent.EventType);
+		return (InputSignal) Activator.CreateInstance(t, networkEvent.PlayerId);
 	}
 
 	public class LeftArrowDown : InputSignal
