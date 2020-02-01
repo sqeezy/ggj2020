@@ -44,6 +44,7 @@ public class InputDispatcher : IInputDispatcher
 	public void ForwardArrowDown(string playerId)
 	{
 		_signalBus.Fire(new InputSignal.ForwardArrowDown(playerId));
+		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void DownArrowUp(string playerId)
@@ -55,6 +56,18 @@ public class InputDispatcher : IInputDispatcher
 	public void DownArrowDown(string playerId)
 	{
 		_signalBus.Fire(new InputSignal.DownArrowDown(playerId));
+		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
+	}
+
+	public void FireDown(string playerId)
+	{
+		_signalBus.Fire(new InputSignal.FireDown(playerId));
+		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
+	}
+
+	public void FireUp(string playerId)
+	{
+		_signalBus.Fire(new InputSignal.FireUp(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 }
@@ -69,6 +82,8 @@ public interface IInputDispatcher
 	void ForwardArrowDown(string playerId);
 	void DownArrowUp(string playerId);
 	void DownArrowDown(string playerId);
+	void FireDown(string playerId);
+	void FireUp(string playerId);
 }
 
 public class GameSignals
@@ -145,6 +160,20 @@ public class InputSignal
 	public class DownArrowUp : InputSignal
 	{
 		public DownArrowUp(string playerId) : base(playerId)
+		{
+		}
+	}
+
+	public class FireDown : InputSignal
+	{
+		public FireDown(string playerId) : base(playerId)
+		{
+		}
+	}
+
+	public class FireUp : InputSignal
+	{
+		public FireUp(string playerId) : base(playerId)
 		{
 		}
 	}
