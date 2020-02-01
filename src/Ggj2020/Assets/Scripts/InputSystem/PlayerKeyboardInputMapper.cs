@@ -13,10 +13,11 @@ namespace InputSystem
 		private readonly KeyCode _forward;
 		private readonly KeyCode _down;
 		private readonly KeyCode _fire;
+		private readonly KeyCode _upgrade;
 		private readonly IInputDispatcher _inputDispatcher;
 
 		public PlayerKeyboardInputMapper(string playerId, KeyCode left, KeyCode right, KeyCode forward, KeyCode down,
-			KeyCode fire,
+			KeyCode fire,KeyCode upgrade,
 			IInputDispatcher inputDispatcher)
 		{
 			_playerId = playerId;
@@ -25,6 +26,7 @@ namespace InputSystem
 			_forward = forward;
 			_down = down;
 			_fire = fire;
+			_upgrade = upgrade;
 			_inputDispatcher = inputDispatcher;
 		}
 
@@ -78,6 +80,11 @@ namespace InputSystem
 			if (Input.GetKeyDown(_fire))
 			{
 				_inputDispatcher.FireUp(_playerId);
+			}
+
+			if (Input.GetKeyDown(_upgrade))
+			{
+				_inputDispatcher.UpgradeArmor(_playerId);
 			}
 		}
 	}

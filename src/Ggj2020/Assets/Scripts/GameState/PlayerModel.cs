@@ -8,13 +8,16 @@ using Zenject;
 public class PlayerModel : ITickable
 {
 	private readonly SignalBus _signalBus;
+	private readonly ArmorSystem _armorSystem;
+
 	public readonly PlayerData PlayerData;
 	private readonly CarModel _carModel;
 
-	public PlayerModel(SignalBus signalBus, PlayerData data)
+	public PlayerModel(SignalBus signalBus, PlayerData data, ArmorSystem armorSystem)
 	{
 		_signalBus = signalBus;
 		PlayerData = data;
+		_armorSystem = armorSystem;
 		_carModel = new CarModel(PlayerData.CarData);
 
 		_signalBus.Subscribe<InputSignal.LeftArrowUp>(m => CheckPlayerAction(m, _carModel.StopStearLeft));
@@ -25,6 +28,15 @@ public class PlayerModel : ITickable
 		_signalBus.Subscribe<InputSignal.ForwardArrowUp>(m => CheckPlayerAction(m, _carModel.StopAccelerate));
 		_signalBus.Subscribe<InputSignal.DownArrowDown>(m => CheckPlayerAction(m, _carModel.StartBreak));
 		_signalBus.Subscribe<InputSignal.DownArrowUp>(m => CheckPlayerAction(m, _carModel.StopBreak));
+		_signalBus.Subscribe<InputSignal.UpgradeArmor>(m => CheckPlayerAction(m, HandleUpgradeArmor));
+	}
+
+	private void HandleUpgradeArmor()
+	{
+		if (_armorSystem.CanUpgrade(PlayerData))
+		{
+			_armorSystem.Upgrade(PlayerData);
+		}
 	}
 
 	public int Coins => PlayerData.Coins;
@@ -51,6 +63,5 @@ public class PlayerModel : ITickable
 	public void UpgradeArmor(uint newArmorLevel)
 	{
 		PlayerData.CarData.SetArmorLevel(newArmorLevel);
-
 	}
 }

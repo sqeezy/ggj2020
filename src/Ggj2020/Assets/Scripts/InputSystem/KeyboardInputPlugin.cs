@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using InputSystem;
+﻿using InputSystem;
 using UnityEngine;
-using Zenject;
 
 public class KeyboardInputPlugin : IInputPlugin
 {
@@ -12,10 +9,11 @@ public class KeyboardInputPlugin : IInputPlugin
 	public KeyboardInputPlugin(IInputDispatcher inputDispatcher)
 	{
 		_playerZero = new PlayerKeyboardInputMapper("0", KeyCode.LeftArrow,
-			KeyCode.RightArrow, KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightShift, inputDispatcher);
+			KeyCode.RightArrow, KeyCode.UpArrow, KeyCode.DownArrow, KeyCode.RightShift, KeyCode.Return,
+			inputDispatcher);
 
 		_playerOne = new PlayerKeyboardInputMapper("1", KeyCode.A,
-			KeyCode.D, KeyCode.W, KeyCode.S, KeyCode.F, inputDispatcher);
+			KeyCode.D, KeyCode.W, KeyCode.S, KeyCode.F, KeyCode.G, inputDispatcher);
 	}
 
 

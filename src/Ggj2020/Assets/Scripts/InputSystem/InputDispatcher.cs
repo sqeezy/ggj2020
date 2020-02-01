@@ -71,6 +71,11 @@ public class InputDispatcher : IInputDispatcher
 		_signalBus.Fire(new InputSignal.FireUp(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
+
+	public void UpgradeArmor(string playerId)
+	{
+		_signalBus.Fire(new InputSignal.UpgradeArmor(playerId));
+	}
 }
 
 public interface IInputDispatcher
@@ -85,6 +90,7 @@ public interface IInputDispatcher
 	void DownArrowDown(string playerId);
 	void FireDown(string playerId);
 	void FireUp(string playerId);
+	void UpgradeArmor(string playerId);
 }
 
 public class GameSignals
@@ -208,6 +214,13 @@ public class InputSignal
 	public class FireUp : InputSignal
 	{
 		public FireUp(string playerId) : base(playerId)
+		{
+		}
+	}
+
+	public class UpgradeArmor : InputSignal
+	{
+		public UpgradeArmor(string playerId) : base(playerId)
 		{
 		}
 	}
