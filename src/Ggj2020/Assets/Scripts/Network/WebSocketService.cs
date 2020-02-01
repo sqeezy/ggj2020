@@ -10,17 +10,24 @@ using Zenject;
 /// </summary>
 public class WebSocketService
 {
-	private const string SERVER_ADDRESS = "ws://localhost:8080/socket";
+	private const string WEBSOCKET_PROTOCOL = "ws";
+	private const string WEBSOCKET_URL_PATH = "socket";
 	private readonly SignalBus _signalBus;
 	private readonly MainThreadQueue _mainThreadQueue;
 	private readonly WebSocket _webSocket;
 
-	public WebSocketService(SignalBus signalBus, MainThreadQueue mainThreadQueue){
+	public WebSocketService(SignalBus signalBus, MainThreadQueue mainThreadQueue, URLReader urlReader)
+	{
 		Debug.Log("WebSocketService ahoy!");
 		_signalBus = signalBus;
 		_mainThreadQueue = mainThreadQueue;
 
-		_webSocket = WebSocketFactory.CreateInstance(SERVER_ADDRESS);
+		var browerUri = new UriBuilder(urlReader.ReadURL());
+		var baseUri = new UriBuilder(WEBSOCKET_PROTOCOL, browerUri.Host, browerUri.Port, browerUri.Path).Uri;
+		var fullUri = new Uri(baseUri, WEBSOCKET_URL_PATH);
+		Debug.Log("Trying to connect to " + fullUri);
+
+		_webSocket = WebSocketFactory.CreateInstance(fullUri.ToString());
 
 		_webSocket.OnOpen += OnOpen;
 		_webSocket.OnMessage += OnMessage;
