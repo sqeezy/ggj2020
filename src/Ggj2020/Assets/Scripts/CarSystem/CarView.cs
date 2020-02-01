@@ -69,6 +69,11 @@ public class CarView : MonoBehaviour
 	}
 
 
+	public void SetArmorLevel(uint armorLevel)
+	{
+		
+	}
+
 	private void OnTriggerEnter(Collider other)
 	{
 		var light = other.gameObject.GetComponent<SpriteLight>();

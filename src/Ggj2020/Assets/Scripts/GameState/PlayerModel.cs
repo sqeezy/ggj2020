@@ -54,14 +54,4 @@ public class PlayerModel : ITickable
 	{
 		_carModel.Tick();
 	}
-
-	public void Pay(int amount)
-	{
-		PlayerData.SetCoins(PlayerData.Coins - amount);
-	}
-
-	public void UpgradeArmor(uint newArmorLevel)
-	{
-		PlayerData.CarData.SetArmorLevel(newArmorLevel);
-	}
 }

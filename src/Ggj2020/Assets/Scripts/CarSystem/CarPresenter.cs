@@ -4,6 +4,8 @@ using Zenject;
 
 public class CarPresenter : MonoBehaviour
 {
+	public CarView View;
+
 	private Rigidbody _body;
 	private CarData _observedData;
 	private ITimeProvider _timeProvider;
@@ -28,12 +30,19 @@ public class CarPresenter : MonoBehaviour
 
 	public void LateUpdate()
 	{
+
+
+		UpdateMovement();
+	}
+
+	private void UpdateMovement()
+	{
 		var go = gameObject;
 
 		var rotateDelta = _observedData.RotationVelocity * _timeProvider.DeltaTime;
 		go.transform.RotateAround(_body.position, Vector3.forward, rotateDelta);
 
-		var moveDelta = go.transform.rotation * (_observedData.Velocity *  CarModel.Forward);
+		var moveDelta = go.transform.rotation * (_observedData.Velocity * CarModel.Forward);
 		_body.velocity = moveDelta;
 		_body.angularVelocity = Vector3.zero;
 	}
