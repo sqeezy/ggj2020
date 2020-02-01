@@ -39,6 +39,7 @@ public class ProjectInstaller : MonoInstaller
 		Container.DeclareSignal<InputSignal.DownArrowDown>().OptionalSubscriber();
 
 		Container.DeclareSignal<InputSignal.ServerEvent>().OptionalSubscriber();
+		Container.DeclareSignal<InputSignal.UpgradeArmor>().OptionalSubscriber();
 
 		Container.DeclareSignal<GameSignals.PlayerActionTriggered>().OptionalSubscriber();
 	}
