@@ -21,6 +21,7 @@ public class ProjectInstaller : MonoInstaller
 		Container.Bind<ArmorSystem>().AsSingle();
 		Container.BindInterfacesAndSelfTo<MainThreadQueue>().AsSingle();
 		Container.Bind<PlayerId>().AsSingle();
+		Container.Bind<URLReader>().AsSingle();
 		DeclareSignals();
 	}
 
