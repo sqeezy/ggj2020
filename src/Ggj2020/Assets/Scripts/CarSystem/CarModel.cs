@@ -84,7 +84,7 @@ public class CarModel
 
 	public void UpdatePosition(Vector3 newPosition)
 	{
-		_data.Position = newPosition;
+		_data.SetPosition(newPosition);
 	}
 
 	public void Tick()
@@ -97,7 +97,7 @@ public class CarModel
 	private void ApplyAcceleration()
 	{
 		var rotation = Quaternion.Euler(0, 0, _data.RotationVelocity);
-		_data.Position += _data.Velocity * (rotation * Forward);
+		_data.SetPosition(_data.Position + _data.Velocity * (rotation * Forward));
 	}
 
 	private void UpdateVelocity()
@@ -105,13 +105,13 @@ public class CarModel
 		switch (_data.Acceleration)
 		{
 			case CarAcceleration.None:
-				_data.Velocity *= 0.99f;
+				_data.SetVelocity(_data.Velocity * 0.99f);
 				break;
 			case CarAcceleration.Forward:
-				_data.Velocity += VelocityChange;
+				_data.SetVelocity(_data.Velocity + VelocityChange);
 				break;
 			case CarAcceleration.Backward:
-				_data.Velocity -= VelocityChange;
+				_data.SetVelocity(_data.Velocity - VelocityChange);
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();

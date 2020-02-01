@@ -23,7 +23,7 @@ public class CarPresenter : MonoBehaviour
 
 	public void Update()
 	{
-		_observedData.Position = _body.position;
+		_observedData.SetPosition(_body.position);
 	}
 
 	public void LateUpdate()
