@@ -15,7 +15,6 @@ public class CarModel
 
 	public int PlayerId => _data.PlayerId;
 	public Vector3 Position => _data.Position;
-	public Vector3 Rotation => _data.RotationVelocity;
 
 	public CarModel(CarData data)
 	{
@@ -80,20 +79,12 @@ public class CarModel
 
 	private void UpdateRotationVelocity(float stearingDelta)
 	{
-		var currentAngle = _data.RotationVelocity;
-		var cleanAngles = new Vector3(0, 0, (currentAngle.z + stearingDelta) % 360);
-		_data.RotationVelocity = cleanAngles;
-		_data.RotVelo = cleanAngles.z;
+		_data.RotationVelocity = (_data.RotationVelocity + stearingDelta) % 360;
 	}
 
 	public void UpdatePosition(Vector3 newPosition)
 	{
 		_data.Position = newPosition;
-	}
-
-	public void UpdateRotation(Quaternion transformRotation)
-	{
-		_data.RotationVelocity = transformRotation.eulerAngles;
 	}
 
 	public void Tick()
@@ -105,7 +96,7 @@ public class CarModel
 
 	private void ApplyAcceleration()
 	{
-		var rotation = Quaternion.Euler(0, 0, _data.RotationVelocity.z);
+		var rotation = Quaternion.Euler(0, 0, _data.RotationVelocity);
 		_data.Position += _data.Velocity * (rotation * Forward);
 	}
 
@@ -132,7 +123,7 @@ public class CarModel
 		switch (_data.Stearing)
 		{
 			case CarStearing.None:
-				UpdateRotationVelocity(-_data.RotVelo * 0.999f);
+				UpdateRotationVelocity(-_data.RotationVelocity * 0.85f);
 				break;
 			case CarStearing.Left:
 				UpdateRotationVelocity(-StearingFactor);

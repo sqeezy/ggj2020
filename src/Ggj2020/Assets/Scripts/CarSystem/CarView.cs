@@ -60,7 +60,6 @@ public class CarView : MonoBehaviour
 			else
 			{
 				EnableLightsLeft();
-				
 			}
 		}
 	}
