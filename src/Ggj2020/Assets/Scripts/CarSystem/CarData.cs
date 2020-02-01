@@ -46,4 +46,10 @@ public class CarData
 		Stearing = newStearing;
 		DataChanged();
 	}
+
+	public void SetArmorState(HitZones all)
+	{
+		ArmorState = HitZones.All;
+		DataChanged();
+	}
 }
