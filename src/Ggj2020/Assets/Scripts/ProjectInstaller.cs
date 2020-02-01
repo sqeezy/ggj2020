@@ -15,6 +15,7 @@ public class ProjectInstaller : MonoInstaller
 		Container.Bind<IInitializable>().To<Main>().AsSingle();
 		Container.BindInterfacesAndSelfTo<GameModel>().AsSingle();
 		Container.Bind<IPlayerBuilder>().To<PlayerBuilder>().AsSingle();
+		Container.Bind<ITimeProvider>().To<TimeProvider>().AsSingle();
 		DeclareSignals();
 	}
 
