@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -38,6 +39,9 @@ public class GameModel : ITickable
 			model.Tick();
 		}
 	}
+
+	public IEnumerable<PlayerModel> GetOrderedPlayers() =>
+		_registeredPlayers.Values.OrderByDescending(l => l.PlayerData.CarData.Position.y);
 
 	public PlayerModel GetFirstPlayer()
 	{

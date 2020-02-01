@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -34,6 +35,12 @@ public class MoveCamera : MonoBehaviour
 	}
 
 	private void CheckSpeedByPlayer()
+	{
+		var orderedPlayers = _model.GetOrderedPlayers().ToArray();
+		var first = orderedPlayers[0];
+	}
+
+	private void FollowFirst()
 	{
 		var player = _model.GetFirstPlayer();
 		if (player != null)
