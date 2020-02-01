@@ -19,6 +19,7 @@ public class CarPresenter : MonoBehaviour
 	{
 		_timeProvider = timeProvider;
 	}
+
 	public void Init(CarData observedData)
 	{
 		_body = gameObject.GetComponent<Rigidbody>();
@@ -35,7 +36,7 @@ public class CarPresenter : MonoBehaviour
 
 	public void Update()
 	{
-		_body.AddRelativeForce(0, _observedData.Velocity * 500, 0);
-		gameObject.transform.rotation = Quaternion.Euler(_observedData.Rotation);
+		_body.AddRelativeForce(0, _observedData.Velocity * 500 * _timeProvider.DeltaTime, 0);
+		gameObject.transform.rotation = Quaternion.Euler(_observedData.Rotation * _timeProvider.DeltaTime);
 	}
 }
