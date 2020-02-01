@@ -10,8 +10,8 @@ public class CarModel
 	private readonly CarData _data;
 
 	private const float StearingFactor = 250f;
-	private const float VelocityChange = 30f;
-	private const float MaxVelocity = 20;
+	private const float VelocityChange = 5f;
+	private const float MaxVelocity = 30;
 	public static readonly Vector3 Forward = Vector3.up;
 
 	public int PlayerId => _data.PlayerId;
@@ -107,13 +107,13 @@ public class CarModel
 		switch (_data.Acceleration)
 		{
 			case CarAcceleration.None:
-				_data.SetVelocity(_data.Velocity * 0.99f);
+				_data.SetVelocity(_data.Velocity * 0.95f);
 				break;
 			case CarAcceleration.Forward:
 				_data.SetVelocity(Mathf.Min(_data.Velocity + change, MaxVelocity));
 				break;
 			case CarAcceleration.Backward:
-				_data.SetVelocity(_data.Velocity - change);
+				_data.SetVelocity(Mathf.Max(_data.Velocity - change, -MaxVelocity));
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();
@@ -128,10 +128,10 @@ public class CarModel
 				UpdateRotationVelocity(-_data.RotationVelocity * 0.85f);
 				break;
 			case CarStearing.Left:
-				UpdateRotationVelocity(-StearingFactor);
+				UpdateRotationVelocity(StearingFactor);
 				break;
 			case CarStearing.Right:
-				UpdateRotationVelocity(StearingFactor);
+				UpdateRotationVelocity(-StearingFactor);
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();

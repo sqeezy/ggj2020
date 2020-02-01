@@ -42,6 +42,8 @@ public class PlayerConfiguration
 		carPresenter.Init(_data.CarData);
 
 		var pos = carPresenter.transform.position;
+		var carView = carPresenter.gameObject.GetComponent<CarView>();
+		carView.MainColor = _data.PlayerId == "0" ? Color.red : Color.green;
 
 		carPresenter.transform.position = pos;
 		_carModel.UpdatePosition(_data.CarData.Position);

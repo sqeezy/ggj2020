@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using Zenject;
 
@@ -36,5 +37,21 @@ public class GameModel : ITickable
 		{
 			model.Tick();
 		}
+	}
+
+	public PlayerModel GetFirstPlayer()
+	{
+		float maxFound = 0f;
+		PlayerModel first = null; 
+		foreach (var registeredPlayer in _registeredPlayers)
+		{
+			if (registeredPlayer.Value.PlayerData.CarData.Position.y > maxFound)
+			{
+				first = registeredPlayer.Value;
+				maxFound = registeredPlayer.Value.PlayerData.CarData.Position.y;
+			}
+		}
+
+		return first;
 	}
 }
