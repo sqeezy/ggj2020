@@ -9,13 +9,13 @@ public class CarModel
 {
 	private readonly CarData _data;
 
-	private readonly Vector3 _stearingVector = new Vector3(0, 0, 5f);
-	private float _velocityChange = 0.01f;
-	private readonly Vector3 _forward = new Vector3(1, 0, 0);
+	private const float StearingFactor = 180f;
+	private const float VelocityChange = 10f;
+	public static  readonly Vector3 Forward = Vector3.up;
 
 	public int PlayerId => _data.PlayerId;
 	public Vector3 Position => _data.Position;
-	public Vector3 Rotation => _data.Rotation;
+	public Vector3 Rotation => _data.RotationDelta;
 
 	public CarModel(CarData data)
 	{
@@ -78,13 +78,13 @@ public class CarModel
 		}
 	}
 
-	private void Rotate(Vector3 stearingVector)
+	private void Rotate(float stearingDelta)
 	{
-		var angles = _data.Rotation;
-		var newAngles = angles + stearingVector;
-		_data.Rotation = newAngles;
+		var currentAngle = _data.RotationDelta;
+		var cleanAngles = new Vector3(0, 0, (currentAngle.z + stearingDelta) % 360);
+		_data.RotationDelta = cleanAngles;
+		_data.RotDelta = cleanAngles.z;
 	}
-
 
 	public void UpdatePosition(Vector3 newPosition)
 	{
@@ -93,23 +93,23 @@ public class CarModel
 
 	public void UpdateRotation(Quaternion transformRotation)
 	{
-		_data.Rotation = transformRotation.eulerAngles;
+		_data.RotationDelta = transformRotation.eulerAngles;
 	}
 
 	public void Tick()
 	{
 		ApplyStearing();
-		UpdateAcceleration();
+		UpdateVelocity();
 		ApplyAcceleration();
 	}
 
 	private void ApplyAcceleration()
 	{
-		var rotation = Quaternion.Euler(0, 0, _data.Rotation.z);
-		_data.Position += _data.Velocity  * (rotation * _forward);
+		var rotation = Quaternion.Euler(0, 0, _data.RotationDelta.z);
+		_data.Position += _data.Velocity * (rotation * Forward);
 	}
 
-	private void UpdateAcceleration()
+	private void UpdateVelocity()
 	{
 		switch (_data.Acceleration)
 		{
@@ -117,10 +117,10 @@ public class CarModel
 				_data.Velocity *= 0.99f;
 				break;
 			case CarAcceleration.Forward:
-				_data.Velocity += _velocityChange;
+				_data.Velocity += VelocityChange;
 				break;
 			case CarAcceleration.Backward:
-				_data.Velocity -= _velocityChange;
+				_data.Velocity -= VelocityChange;
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();
@@ -132,10 +132,10 @@ public class CarModel
 		switch (_data.Stearing)
 		{
 			case CarStearing.Left:
-				Rotate(-_stearingVector);
+				Rotate(-StearingFactor);
 				break;
 			case CarStearing.Right:
-				Rotate(_stearingVector);
+				Rotate(StearingFactor);
 				break;
 			case CarStearing.None:
 				break;

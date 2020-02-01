@@ -1,4 +1,5 @@
 using System;
+using System.Data.Common;
 using ModestTree.Util;
 using UnityEngine;
 using Random = System.Random;
@@ -8,10 +9,12 @@ public class CarData
 	public event Action DataChanged = () => { };
 	private static readonly Random Rng = new Random();
 	private Vector3 _position;
-	private Vector3 _rotation;
+	private Vector3 _rotationDelta;
 	private float _velocity;
 	private CarAcceleration _acceleration;
 	private CarStearing _stearing;
+	private float _rotDelta;
+	private Vector3 _rotation;
 	public int PlayerId { get; } = Rng.Next();
 
 	public Vector3 Position
@@ -31,6 +34,28 @@ public class CarData
 		{
 			_rotation = value;
 			DataChanged();
+		}
+	}
+
+	public Vector3 RotationDelta
+	{
+		get => _rotationDelta;
+		set
+		{
+			_rotationDelta = value;
+			DataChanged();
+		}
+	}
+
+	public float RotDelta
+	{
+		get => _rotDelta;
+		set
+		{
+			_rotationDelta.z = value;
+			_rotationDelta.x = 0;
+			_rotationDelta.y = 0;
+			_rotDelta = value;
 		}
 	}
 

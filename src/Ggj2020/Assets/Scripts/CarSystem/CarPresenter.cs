@@ -1,7 +1,6 @@
-﻿
+﻿using System;
 using UnityEngine;
 using Zenject;
-
 
 public class CarPresenter : MonoBehaviour
 {
@@ -23,15 +22,22 @@ public class CarPresenter : MonoBehaviour
 		// _observedData.DataChanged += Update;
 	}
 
-	public void LateUpdate()
-	{
-		_body.velocity = Vector3.zero;
-		_body.angularVelocity = Vector3.zero;
-	}
-
 	public void Update()
 	{
-		_body.AddRelativeForce(0, _observedData.Velocity * 500 * _timeProvider.DeltaTime, 0);
-		gameObject.transform.rotation = Quaternion.Euler(_observedData.Rotation * _timeProvider.DeltaTime);
+		_observedData.Position = _body.position;
+		_observedData.Rotation = _body.rotation.eulerAngles;
+	}
+
+	public void LateUpdate()
+	{
+		var timeWeightedRotationDelta = _observedData.RotDelta * _timeProvider.DeltaTime;
+		var timeWeightedRotationDeltaVector = _observedData.RotationDelta* _timeProvider.DeltaTime;
+		var rotationDeltaEuler = Quaternion.Euler(timeWeightedRotationDeltaVector);
+
+		gameObject.transform.RotateAround(_body.position, Vector3.forward, timeWeightedRotationDelta);
+
+		var forwardWithoutRotation = _observedData.Velocity * _timeProvider.DeltaTime * CarModel.Forward;
+		var forwardWithRotation = rotationDeltaEuler * forwardWithoutRotation ;
+		_body.velocity = forwardWithRotation;
 	}
 }
