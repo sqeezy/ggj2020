@@ -7,6 +7,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
+import java.nio.charset.StandardCharsets;
+
 public class WebSocketHandler extends AbstractWebSocketHandler {
 
 	private static final Logger log = LoggerFactory.getLogger(WebSocketHandler.class);
@@ -14,13 +16,14 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		log.debug("Text Message received {}", message.getPayload());
+		log.debug("Text Message received: {}", message.getPayload());
 		session.sendMessage(message);
 	}
 
 	@Override
 	protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) throws Exception {
-		log.debug("Binary Message received");
+		String payload = new String(message.getPayload().array(), StandardCharsets.UTF_8);
+		log.debug("Binary Message received: {}", payload);
 		session.sendMessage(message);
 	}
 }
