@@ -10,9 +10,9 @@ public class CarData
 	private static readonly Random Rng = new Random();
 	public Vector3 Position;
 	public float Velocity;
-	public CarAcceleration _acceleration;
-	public CarStearing _stearing;
-	public float _rotationVelocity;
+	public CarAcceleration Acceleration;
+	public CarStearing Stearing;
+	private float _rotationVelocity;
 	public int PlayerId { get; } = Rng.Next();
 
 	public void SetPosition(Vector3 newPosition)
@@ -37,24 +37,16 @@ public class CarData
 		DataChanged();
 	}
 
-	public CarAcceleration Acceleration
+	public void SetAcceleration(CarAcceleration newAcceleration)
 	{
-		get => _acceleration;
-		set
-		{
-			_acceleration = value;
-			DataChanged();
-		}
+		Acceleration = newAcceleration;
+		DataChanged();
 	}
 
-	public CarStearing Stearing
+	public void SetStearing(CarStearing newStearing)
 	{
-		get => _stearing;
-		set
-		{
-			_stearing = value;
-			DataChanged();
-		}
+		Stearing = newStearing;
+		DataChanged();
 	}
 }
 
