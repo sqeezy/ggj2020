@@ -9,7 +9,7 @@ public class CarModel
 {
 	private readonly CarData _data;
 	
-	private readonly Vector3 _stearingVector = new Vector3(0, 0, 1.5f);
+	private readonly Vector3 _stearingVector = new Vector3(0, 0, 5f);
 	private float _velocityChange = 0.01f;
 	private readonly Vector3 _forward = new Vector3(1, 0, 0);
 	
@@ -105,7 +105,7 @@ public class CarModel
 	private void ApplyAcceleration()
 	{
 		var rotation = Quaternion.Euler(0, 0, _data.Rotation.z);
-		_data.Position += _data.Velocity * (rotation * _forward);
+		_data.Position += _data.Velocity * (rotation * _forward) * Time.deltaTime;
 	}
 
 	private void UpdateAccelaration()
@@ -131,10 +131,10 @@ public class CarModel
 		switch (_data.Stearing)
 		{
 			case CarStearing.Left:
-				Rotate(-_stearingVector * _data.Velocity);
+				Rotate(-_stearingVector* Time.deltaTime);
 				break;
 			case CarStearing.Right:
-				Rotate(_stearingVector * _data.Velocity);
+				Rotate(_stearingVector* Time.deltaTime);
 				break;
 			case CarStearing.None:
 				break;
