@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+
+  comm-server:
+    image: ggj2020rant/comm-server:latest
+    restart: always
+    ports:
+      - 8080:8080
