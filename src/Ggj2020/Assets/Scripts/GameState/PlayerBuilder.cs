@@ -13,26 +13,32 @@ public class PlayerBuilder : IPlayerBuilder
 	}
 	public PlayerConfiguration CreatePlayer(int playerId)
 	{
-		return new PlayerConfiguration(playerId, _diContainer);
+		return _diContainer.Instantiate<PlayerConfiguration>(new List<object> {playerId});
 	}
 }
 
 public class PlayerConfiguration
 {
 	private readonly DiContainer _diContainer;
+	private readonly IAssetService _assetService;
 	private PlayerData _data;
 	private CarModel _carModel;
+	
 
-	public PlayerConfiguration(int playerId, DiContainer diContainer)
+	public PlayerConfiguration(DiContainer diContainer,IAssetService assetService,  int playerId)
 	{
 		_diContainer = diContainer;
+		_assetService = assetService;
 		_data = new PlayerData(playerId);
 	}
 	public PlayerConfiguration Configure()
 	{
 		_data.CarData = new CarData();
 		_carModel = new CarModel(_data.CarData);
-		
+		var carPresenter = _assetService.GetAssetInstance(AssetCatalogue.Car01).GetComponent<CarPresenter>();
+		carPresenter.Init(_data.CarData);
+		_carModel.UpdatePosition(_data.CarData.Position);
+		_carModel.UpdateRotation(Quaternion.Euler(_data.CarData.Rotation));
 		return this;
 	}
 

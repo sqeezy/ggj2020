@@ -7,7 +7,7 @@ using UnityEngine;
 using Zenject;
 using static UnityEngine.KeyCode;
 
-public class MoveLikeCar : MonoBehaviour
+public class CarPresenter : MonoBehaviour
 {
 
 	private Rigidbody2D _body;
@@ -23,7 +23,11 @@ public class MoveLikeCar : MonoBehaviour
 
 	private void UpdateState()
 	{
-		gameObject.transform.position = _observedData.Position;
+		
+		var moveVector = _observedData.Position - gameObject.transform.position;
+		_body.velocity = new Vector2(moveVector.x, moveVector.y);
+		// _body.AddForce(new Vector2(moveVector.x, moveVector.y));
+		// gameObject.transform.position = State.Position;
 		gameObject.transform.rotation = Quaternion.Euler(_observedData.Rotation);
 	}
 }

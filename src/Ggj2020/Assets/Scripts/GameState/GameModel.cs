@@ -13,6 +13,11 @@ public class GameModel
 	{
 		_signalBus = signalBus;
 		_playerBuilder = playerBuilder;
+		
+	}
+
+	public void Activate()
+	{
 		_signalBus.Subscribe<GameSignals.PlayerActionTriggered>(m => UpdatePlayerList(m.PlayerId));
 	}
 
