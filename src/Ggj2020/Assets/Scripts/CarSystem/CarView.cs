@@ -16,9 +16,15 @@ public class CarView : MonoBehaviour
 
 	private void Update()
 	{
-		foreach (var mainSprite in MainColorSprites) mainSprite.color = MainColor;
+		foreach (var mainSprite in MainColorSprites)
+		{
+			mainSprite.color = MainColor;
+		}
 
-		foreach (var windowSprite in WindowColorSprites) windowSprite.color = WindowColor;
+		foreach (var windowSprite in WindowColorSprites)
+		{
+			windowSprite.color = WindowColor;
+		}
 	}
 
 	public void EnableLightsLeft()

@@ -14,7 +14,6 @@ public class CarData
 	private CarAcceleration _acceleration;
 	private CarStearing _stearing;
 	private float _rotVelo;
-	private Vector3 _rotation;
 	public int PlayerId { get; } = Rng.Next();
 
 	public Vector3 Position
@@ -23,26 +22,6 @@ public class CarData
 		set
 		{
 			_position = value;
-			DataChanged();
-		}
-	}
-
-	public Vector3 Rotation
-	{
-		get => _rotation;
-		set
-		{
-			_rotation = value;
-			DataChanged();
-		}
-	}
-
-	public Vector3 RotationVelocity
-	{
-		get => _rotationVelocity;
-		set
-		{
-			_rotationVelocity = value;
 			DataChanged();
 		}
 	}
