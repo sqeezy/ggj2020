@@ -19,8 +19,15 @@ public class DriverPresenter : MonoBehaviour
 
 	public void OnButtonDown()
 	{
-		InputSignal signal = new InputSignal.ForwardArrowDown(_playerId.get());
+		InputSignal signal = new InputSignal.ForwardArrowDown(_playerId.Get());
 		_webSocketService.Send(signal.ToJson());
+	}
+
+	public void MakeMeMaster()
+	{
+		_playerId.MakeMeMaster();
+		// to inform comm server that we are master
+		_webSocketService.Send(new InputSignal.ServerEvent(_playerId.Get()).ToJson());
 	}
 
 	// Start is called before the first frame update

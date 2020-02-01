@@ -20,6 +20,7 @@ public class ProjectInstaller : MonoInstaller
 		Container.Bind<WebSocketService>().AsSingle();
 		Container.Bind<ArmorSystem>().AsSingle();
 		Container.BindInterfacesAndSelfTo<MainThreadQueue>().AsSingle();
+		Container.Bind<PlayerId>().AsSingle();
 		DeclareSignals();
 	}
 
@@ -36,6 +37,8 @@ public class ProjectInstaller : MonoInstaller
 
 		Container.DeclareSignal<InputSignal.DownArrowUp>().OptionalSubscriber();
 		Container.DeclareSignal<InputSignal.DownArrowDown>().OptionalSubscriber();
+
+		Container.DeclareSignal<InputSignal.ServerEvent>().OptionalSubscriber();
 
 		Container.DeclareSignal<GameSignals.PlayerActionTriggered>().OptionalSubscriber();
 	}

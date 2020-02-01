@@ -15,8 +15,7 @@ public class WebSocketService
 	private readonly MainThreadQueue _mainThreadQueue;
 	private readonly WebSocket _webSocket;
 
-	public WebSocketService(SignalBus signalBus, MainThreadQueue mainThreadQueue)
-	{
+	public WebSocketService(SignalBus signalBus, MainThreadQueue mainThreadQueue){
 		Debug.Log("WebSocketService ahoy!");
 		_signalBus = signalBus;
 		_mainThreadQueue = mainThreadQueue;

@@ -135,6 +135,13 @@ public class InputSignal
 		return (InputSignal) Activator.CreateInstance(t, networkEvent.PlayerId);
 	}
 
+	public class ServerEvent : InputSignal
+	{
+		public ServerEvent(string playerId) : base(playerId)
+		{
+		}
+	}
+
 	public class LeftArrowDown : InputSignal
 	{
 		public LeftArrowDown(string playerId) : base(playerId)
