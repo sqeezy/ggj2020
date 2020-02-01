@@ -31,7 +31,7 @@ public class PlayerConfiguration
 	{
 		_diContainer = diContainer;
 		_assetService = assetService;
-		_data = new PlayerData(playerId);
+		_data = _diContainer.Instantiate<PlayerData>(new List<object>{playerId});
 	}
 
 	public PlayerConfiguration Configure()
@@ -52,7 +52,7 @@ public class PlayerConfiguration
 
 	private static CarData DefaultCarData()
 	{
-		return new CarData {Weapon = Weapon.Projectile(), ArmorLevel = 1};
+		return new CarData {Weapon = Weapon.Projectile(), ArmorLevel = 0};
 	}
 
 	public PlayerModel Build()

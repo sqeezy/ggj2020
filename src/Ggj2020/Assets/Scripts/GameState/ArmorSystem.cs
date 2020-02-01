@@ -7,6 +7,7 @@ public class ArmorSystem
 
 	private static readonly Dictionary<uint, uint> _upgradePaths = new Dictionary<uint, uint>
 	{
+		{0, 2},
 		{1, 2},
 		{2, 4},
 		{3, 4},

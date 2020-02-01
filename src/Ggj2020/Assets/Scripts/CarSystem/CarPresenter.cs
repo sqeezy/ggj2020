@@ -14,6 +14,12 @@ public class CarPresenter : MonoBehaviour
 	public void Inject(ITimeProvider timeProvider)
 	{
 		_timeProvider = timeProvider;
+		
+	}
+
+	private void CheckUpgrades()
+	{
+		View.SetArmorLevel(_observedData.ArmorLevel);
 	}
 
 	public void Init(CarData observedData)
@@ -21,6 +27,7 @@ public class CarPresenter : MonoBehaviour
 		_body = gameObject.GetComponent<Rigidbody>();
 
 		_observedData = observedData;
+		_observedData.DataChanged += CheckUpgrades;
 	}
 
 	public void Update()

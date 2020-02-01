@@ -54,4 +54,12 @@ public class GameModel : ITickable
 
 		return first;
 	}
+
+	public void AddResourceForAllPlayers(int resources)
+	{
+		foreach (var registeredPlayer in _registeredPlayers)
+		{
+			_signalBus.Fire(new GameSignals.ChangeResourceSignal(registeredPlayer.Value.PlayerData.PlayerId, resources) );
+		}
+	}
 }

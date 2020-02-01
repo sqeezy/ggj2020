@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-[ExecuteInEditMode]
+
 public class CarView : MonoBehaviour
 {
 	public Color MainColor;
@@ -29,7 +29,7 @@ public class CarView : MonoBehaviour
 			windowSprite.material.color = WindowColor;
 		} 
 		
-		SetArmorLevel(ArmorLevel);
+		//SetArmorLevel(ArmorLevel);
 	}
 
 	public void EnableLightsLeft()
@@ -72,12 +72,13 @@ public class CarView : MonoBehaviour
 	}
 
 
-	public void SetArmorLevel(int armorLevel)
+	public void SetArmorLevel(uint armorLevel)
 	{
 		var oldLevel = AvailableLevels[ArmorLevel];
-		var newLevel = AvailableLevels[armorLevel];
+		var newLevel = AvailableLevels[(int)armorLevel];
 		oldLevel.DeActivateLevel();
 		newLevel.ActivateLevel();
+		ArmorLevel = (int)armorLevel;
 	}
 
 	private void OnTriggerEnter(Collider other)
