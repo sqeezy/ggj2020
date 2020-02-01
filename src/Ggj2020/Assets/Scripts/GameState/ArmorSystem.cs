@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class RepairService
+public class ArmorSystem
 {
 	private const int RepairCost = 200;
 	private const ulong ArmorMax = 7;
@@ -15,20 +15,19 @@ public class RepairService
 		{6, 7}
 	};
 
-	public bool CanUpgrade(PlayerModel player)
+	public bool CanUpgrade(PlayerData player)
 	{
-		return player.ArmorLevel < ArmorMax && player.Coins >= RepairCost;
+		return player.CarData.ArmorLevel < ArmorMax && player.Coins >= RepairCost;
 	}
 
-	public void Repair(PlayerModel player)
+	public void Upgrade(PlayerData player)
 	{
 		if (player.Coins < RepairCost)
 		{
 			return;
 		}
 
-		player.Pay(RepairCost);
-
-		player.UpgradeArmor(_upgradePaths[player.ArmorLevel]);
+		player.SetCoins(player.Coins - RepairCost);
+		player.CarData.SetArmorLevel(_upgradePaths[player.CarData.ArmorLevel]);
 	}
 }
