@@ -7,7 +7,7 @@ public class GameModel : ITickable
 {
 	private readonly SignalBus _signalBus;
 	private readonly IPlayerBuilder _playerBuilder;
-	private Dictionary<int, PlayerModel> _registeredPlayers = new Dictionary<int, PlayerModel>();
+	private Dictionary<string, PlayerModel> _registeredPlayers = new Dictionary<string, PlayerModel>();
 
 	public GameModel(SignalBus signalBus, IPlayerBuilder playerBuilder)
 	{
@@ -21,7 +21,7 @@ public class GameModel : ITickable
 		_signalBus.Subscribe<GameSignals.PlayerActionTriggered>(m => UpdatePlayerList(m.PlayerId));
 	}
 
-	public void UpdatePlayerList(int playerId)
+	public void UpdatePlayerList(string playerId)
 	{
 		if (!_registeredPlayers.ContainsKey(playerId))
 		{

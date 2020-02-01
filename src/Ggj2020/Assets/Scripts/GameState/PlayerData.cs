@@ -1,10 +1,10 @@
 ﻿public class PlayerData
 {
-	public readonly int PlayerId;
+	public readonly string PlayerId;
 	public CarData CarData;
 	public int Coins;
 
-	public PlayerData(int playerId)
+	public PlayerData(string playerId)
 	{
 		PlayerId = playerId;
 	}
