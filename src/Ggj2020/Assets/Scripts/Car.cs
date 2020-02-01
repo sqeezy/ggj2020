@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class Car
 {
-	private readonly Vector3 _stearingVector = new Vector3(0, 1.5f, 0);
+	private readonly Vector3 _stearingVector = new Vector3(0, 0, 1.5f);
 	private float _velocityChange = 0.01f;
-	private readonly Vector3 _forward = new Vector3(0, 0, 1);
+	private readonly Vector3 _forward = new Vector3(1, 0, 0);
 	private CarData Data { get; } = new CarData();
 	public int PlayerId => Data.PlayerId;
 	public Vector3 Position => Data.Position;
@@ -98,7 +98,7 @@ public class Car
 
 	private void ApplyAcceleration()
 	{
-		var rotation = Quaternion.Euler(0, Data.Rotation.y, 0);
+		var rotation = Quaternion.Euler(0, 0, Data.Rotation.z);
 		Data.Position += Data.Velocity * (rotation * _forward);
 	}
 
@@ -125,10 +125,10 @@ public class Car
 		switch (Data.Stearing)
 		{
 			case CarStearing.Left:
-				Rotate(-_stearingVector);
+				Rotate(-_stearingVector * Data.Velocity);
 				break;
 			case CarStearing.Right:
-				Rotate(_stearingVector);
+				Rotate(_stearingVector * Data.Velocity);
 				break;
 			case CarStearing.None:
 				break;
