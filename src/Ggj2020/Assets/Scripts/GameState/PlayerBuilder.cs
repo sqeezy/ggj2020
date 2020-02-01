@@ -50,7 +50,7 @@ public class PlayerConfiguration
 
 	private static CarData DefaultCarData()
 	{
-		return new CarData {Weapon = Weapon.Projectile(), ArmorState = Armor.All};
+		return new CarData {Weapon = Weapon.Projectile(), ArmorLevel = 1};
 	}
 
 	public PlayerModel Build()

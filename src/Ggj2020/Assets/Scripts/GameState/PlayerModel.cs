@@ -28,7 +28,7 @@ public class PlayerModel : ITickable
 	}
 
 	public int Coins => PlayerData.Coins;
-	public Armor ArmorState => PlayerData.CarData.ArmorState;
+	public uint ArmorLevel => PlayerData.CarData.ArmorLevel;
 
 	private void CheckPlayerAction(InputSignal signal, Action triggerAction)
 	{
@@ -48,8 +48,9 @@ public class PlayerModel : ITickable
 		PlayerData.SetCoins(PlayerData.Coins - amount);
 	}
 
-	public void RepairArmor()
+	public void UpgradeArmor(uint newArmorLevel)
 	{
-		PlayerData.CarData.SetArmorState(Armor.All);
+		PlayerData.CarData.SetArmorLevel(newArmorLevel);
+
 	}
 }

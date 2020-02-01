@@ -1,10 +1,23 @@
+using System.Collections.Generic;
+
 public class RepairService
 {
 	private const int RepairCost = 200;
+	private const ulong ArmorMax = 7;
 
-	public bool CanRepair(PlayerModel player)
+	private static readonly Dictionary<uint, uint> _upgradePaths = new Dictionary<uint, uint>
 	{
-		return player.ArmorState != Armor.All && player.Coins >= RepairCost;
+		{1, 2},
+		{2, 4},
+		{3, 4},
+		{4, 5},
+		{5, 7},
+		{6, 7}
+	};
+
+	public bool CanUpgrade(PlayerModel player)
+	{
+		return player.ArmorLevel < ArmorMax && player.Coins >= RepairCost;
 	}
 
 	public void Repair(PlayerModel player)
@@ -15,6 +28,7 @@ public class RepairService
 		}
 
 		player.Pay(RepairCost);
-		player.RepairArmor();
+
+		player.UpgradeArmor(_upgradePaths[player.ArmorLevel]);
 	}
 }
