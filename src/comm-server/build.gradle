@@ -24,3 +24,8 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+
+bootJar {
+	archiveFileName = "comm-server.jar"
+}
