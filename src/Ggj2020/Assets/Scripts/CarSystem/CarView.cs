@@ -75,15 +75,15 @@ public class CarView : MonoBehaviour
 
 	private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up)
 	{
-		var perp = Vector3.Cross(fwd, targetDir);
-		var dir = Vector3.Dot(perp, up);
+		var perpendicular = Vector3.Cross(fwd, targetDir);
+		var direction = Vector3.Dot(perpendicular, up);
 
-		if (dir > 0f)
+		if (direction > 0f)
 		{
 			return 1f;
 		}
 
-		if (dir < 0f)
+		if (direction < 0f)
 		{
 			return -1f;
 		}
