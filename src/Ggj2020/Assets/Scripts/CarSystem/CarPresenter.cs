@@ -18,7 +18,6 @@ public class CarPresenter : MonoBehaviour
 		_body = gameObject.GetComponent<Rigidbody>();
 
 		_observedData = observedData;
-		// _observedData.DataChanged += Update;
 	}
 
 	public void Update()

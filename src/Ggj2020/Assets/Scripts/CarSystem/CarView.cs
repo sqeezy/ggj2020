@@ -13,7 +13,7 @@ public class CarView : MonoBehaviour
 
 	public GameObject LightLeft;
 	public GameObject LightRight;
-	
+
 	private void Update()
 	{
 		foreach (SpriteRenderer mainSprite in MainColorSprites)
@@ -32,19 +32,18 @@ public class CarView : MonoBehaviour
 		LightLeft.SetActive(true);
 		LightRight.SetActive(false);
 	}
-	
+
 	public void EnableLightsRight()
 	{
 		LightLeft.SetActive(false);
 		LightRight.SetActive(true);
 	}
-	
+
 	public void DisableShadows()
 	{
 		LightLeft.SetActive(false);
 		LightRight.SetActive(false);
 	}
-
 
 
 	private void OnTriggerEnter(Collider other)
@@ -57,7 +56,6 @@ public class CarView : MonoBehaviour
 			if (dir < 0)
 			{
 				EnableLightsRight();
-				
 			}
 			else
 			{
@@ -76,16 +74,21 @@ public class CarView : MonoBehaviour
 		}
 	}
 
-	float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up) {
-		Vector3 perp = Vector3.Cross(fwd, targetDir);
-		float dir = Vector3.Dot(perp, up);
-		
-		if (dir > 0f) {
+	private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up)
+	{
+		var perp = Vector3.Cross(fwd, targetDir);
+		var dir = Vector3.Dot(perp, up);
+
+		if (dir > 0f)
+		{
 			return 1f;
-		} else if (dir < 0f) {
-			return -1f;
-		} else {
-			return 0f;
 		}
+
+		if (dir < 0f)
+		{
+			return -1f;
+		}
+
+		return 0f;
 	}
 }
