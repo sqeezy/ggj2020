@@ -38,7 +38,7 @@ public class PlayerConfiguration
 		var carPresenter = _assetService.GetAssetInstance(AssetCatalogue.Car01).GetComponent<CarPresenter>();
 		carPresenter.Init(_data.CarData);
 		_carModel.UpdatePosition(_data.CarData.Position);
-		_carModel.UpdateRotation(Quaternion.Euler(_data.CarData.RotationDelta));
+		_carModel.UpdateRotation(Quaternion.Euler(_data.CarData.RotationVelocity));
 		return this;
 	}
 
