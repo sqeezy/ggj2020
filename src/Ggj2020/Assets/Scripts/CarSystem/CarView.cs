@@ -10,6 +10,9 @@ public class CarView : MonoBehaviour
 	public List<SpriteRenderer> MainColorSprites;
 	public List<SpriteRenderer> WindowColorSprites;
 
+	public List<GameObject> LeftLights;
+	public List<GameObject> RightLights;
+
 	public GameObject LightLeft;
 	public GameObject LightRight;
 
@@ -28,20 +31,41 @@ public class CarView : MonoBehaviour
 
 	public void EnableLightsLeft()
 	{
-		LightLeft.SetActive(true);
-		LightRight.SetActive(false);
+		foreach (var leftLight in LeftLights)
+		{
+			leftLight.SetActive(true);
+		}
+
+		foreach (var rightLight in RightLights)
+		{
+			rightLight.SetActive(false);
+		}
 	}
 
 	public void EnableLightsRight()
 	{
-		LightLeft.SetActive(false);
-		LightRight.SetActive(true);
+		foreach (var leftLight in LeftLights)
+		{
+			leftLight.SetActive(false);
+		}
+
+		foreach (var rightLight in RightLights)
+		{
+			rightLight.SetActive(true);
+		}
 	}
 
 	public void DisableShadows()
 	{
-		LightLeft.SetActive(false);
-		LightRight.SetActive(false);
+		foreach (var leftLight in LeftLights)
+		{
+			leftLight.SetActive(false);
+		}
+
+		foreach (var rightLight in RightLights)
+		{
+			rightLight.SetActive(false);
+		}
 	}
 
 
