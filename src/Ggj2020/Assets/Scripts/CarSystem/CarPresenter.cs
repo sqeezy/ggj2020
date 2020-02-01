@@ -33,7 +33,8 @@ public class CarPresenter : MonoBehaviour
 		var rotateDelta = _observedData.RotationVelocity * _timeProvider.DeltaTime;
 		go.transform.RotateAround(_body.position, Vector3.forward, rotateDelta);
 
-		var moveDelta = go.transform.rotation * (_observedData.Velocity * _timeProvider.DeltaTime * CarModel.Forward);
+		var moveDelta = go.transform.rotation * (_observedData.Velocity *  CarModel.Forward);
 		_body.velocity = moveDelta;
+		_body.angularVelocity = Vector3.zero;
 	}
 }

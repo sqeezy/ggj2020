@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class CarView : MonoBehaviour
 {
 	public Color MainColor;
@@ -16,15 +15,15 @@ public class CarView : MonoBehaviour
 
 	private void Update()
 	{
-		foreach (var mainSprite in MainColorSprites)
+		foreach (SpriteRenderer mainSprite in MainColorSprites)
 		{
-			mainSprite.color = MainColor;
+			mainSprite.material.color = MainColor;
 		}
-
-		foreach (var windowSprite in WindowColorSprites)
+		
+		foreach (SpriteRenderer windowSprite in WindowColorSprites)
 		{
-			windowSprite.color = WindowColor;
-		}
+			windowSprite.material.color = WindowColor;
+		} 
 	}
 
 	public void EnableLightsLeft()
