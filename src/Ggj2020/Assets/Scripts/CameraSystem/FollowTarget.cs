@@ -1,21 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Zenject;
 
 public class FollowTarget : MonoBehaviour
 {
-    [SerializeField] private Transform TargetTranform;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private GameModel _model;
 
-    // Update is called once per frame
-    void LateUpdate()
-    {
-        var targetTranformPosition = TargetTranform.position;
-        var gameObjectTransform = gameObject.transform;
-        gameObjectTransform.position = new Vector3(targetTranformPosition.x, targetTranformPosition.y, gameObjectTransform.position.z);
-    }
+	[Inject]
+	public void Init(GameModel model)
+	{
+		_model = model;
+	}
+
+	// Start is called before the first frame update
+	private void Start()
+	{
+	}
+
+	// Update is called once per frame
+	private void LateUpdate()
+	{
+		var first = _model.GetOrderedPlayers().FirstOrDefault();
+		if (first != null)
+		{
+			var position = first.PlayerData.CarData.Position;
+			var transformPosition = gameObject.transform.position;
+			gameObject.transform.position = new Vector3(transformPosition.x, position.y - 5, transformPosition.z);
+		}
+	}
 }
