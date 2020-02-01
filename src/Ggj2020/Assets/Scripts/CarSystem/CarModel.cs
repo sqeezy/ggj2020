@@ -123,7 +123,7 @@ public class CarModel
 		switch (_data.Stearing)
 		{
 			case CarStearing.None:
-				UpdateRotationVelocity(-_data.RotationVelocity * 0.999f);
+				UpdateRotationVelocity(-_data.RotationVelocity * 0.85f);
 				break;
 			case CarStearing.Left:
 				UpdateRotationVelocity(-StearingFactor);
