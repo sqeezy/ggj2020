@@ -18,12 +18,12 @@ public class CarView : MonoBehaviour
 	{
 		foreach (SpriteRenderer mainSprite in MainColorSprites)
 		{
-			mainSprite.color = MainColor;
+			mainSprite.material.color = MainColor;
 		}
 		
 		foreach (SpriteRenderer windowSprite in WindowColorSprites)
 		{
-			windowSprite.color = WindowColor;
+			windowSprite.material.color = WindowColor;
 		} 
 	}
 
