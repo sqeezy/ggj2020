@@ -104,6 +104,16 @@ public class GameSignals
 			PlayerId = playerId;
 		}
 	}
+
+	public class ChangeResourceSignal : InputSignal
+	{
+		public readonly int Resources;
+
+		public ChangeResourceSignal(string playerId, int resources) : base(playerId)
+		{
+			Resources = resources;
+		}
+	}
 }
 
 [Serializable]

@@ -22,6 +22,7 @@ public class ProjectInstaller : MonoInstaller
 		Container.BindInterfacesAndSelfTo<MainThreadQueue>().AsSingle();
 		Container.Bind<PlayerId>().AsSingle();
 		Container.Bind<URLReader>().AsSingle();
+		Container.Bind<ITickable>().To<ResourceSystem>().AsSingle();
 		DeclareSignals();
 	}
 
@@ -45,5 +46,6 @@ public class ProjectInstaller : MonoInstaller
 		Container.DeclareSignal<InputSignal.FireUp>().OptionalSubscriber();
 
 		Container.DeclareSignal<GameSignals.PlayerActionTriggered>().OptionalSubscriber();
+		Container.DeclareSignal<GameSignals.ChangeResourceSignal>().OptionalSubscriber();
 	}
 }

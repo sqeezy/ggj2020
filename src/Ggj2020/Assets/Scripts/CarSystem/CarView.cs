@@ -13,9 +13,10 @@ public class CarView : MonoBehaviour
 	public List<GameObject> LeftLights;
 	public List<GameObject> RightLights;
 
-	public GameObject LightLeft;
-	public GameObject LightRight;
-
+	[Range(0,7)]
+	public int ArmorLevel;
+	public List<CarLevel> AvailableLevels; 
+	
 	private void Update()
 	{
 		foreach (SpriteRenderer mainSprite in MainColorSprites)
@@ -27,6 +28,8 @@ public class CarView : MonoBehaviour
 		{
 			windowSprite.material.color = WindowColor;
 		} 
+		
+		//SetArmorLevel(ArmorLevel);
 	}
 
 	public void EnableLightsLeft()
@@ -71,7 +74,11 @@ public class CarView : MonoBehaviour
 
 	public void SetArmorLevel(uint armorLevel)
 	{
-		
+		var oldLevel = AvailableLevels[ArmorLevel];
+		var newLevel = AvailableLevels[(int)armorLevel];
+		oldLevel.DeActivateLevel();
+		newLevel.ActivateLevel();
+		ArmorLevel = (int)armorLevel;
 	}
 
 	private void OnTriggerEnter(Collider other)

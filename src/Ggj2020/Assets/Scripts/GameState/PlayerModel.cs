@@ -29,6 +29,12 @@ public class PlayerModel : ITickable
 		_signalBus.Subscribe<InputSignal.DownArrowDown>(m => CheckPlayerAction(m, _carModel.StartBreak));
 		_signalBus.Subscribe<InputSignal.DownArrowUp>(m => CheckPlayerAction(m, _carModel.StopBreak));
 		_signalBus.Subscribe<InputSignal.UpgradeArmor>(m => CheckPlayerAction(m, HandleUpgradeArmor));
+		_signalBus.Subscribe<GameSignals.ChangeResourceSignal>(m => CheckPlayerAction(m, HandleResourceChange));
+	}
+
+	private void HandleResourceChange(GameSignals.ChangeResourceSignal signal)
+	{
+		PlayerData.Coins += signal.Resources;
 	}
 
 	private void HandleUpgradeArmor()
@@ -47,6 +53,14 @@ public class PlayerModel : ITickable
 		if (PlayerData.PlayerId == signal.PlayerId)
 		{
 			triggerAction();
+		}
+	}
+
+	private void CheckPlayerAction(InputSignal signal, Action<GameSignals.ChangeResourceSignal> triggerAction)
+	{
+		if (PlayerData.PlayerId == signal.PlayerId)
+		{
+			triggerAction(signal as GameSignals.ChangeResourceSignal);
 		}
 	}
 
