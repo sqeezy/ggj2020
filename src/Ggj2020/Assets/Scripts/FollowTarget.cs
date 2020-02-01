@@ -16,6 +16,6 @@ public class FollowTarget : MonoBehaviour
     {
         var targetTranformPosition = TargetTranform.position;
         var gameObjectTransform = gameObject.transform;
-        gameObjectTransform.position = new Vector3(targetTranformPosition.x, gameObjectTransform.position.y, targetTranformPosition.z);
+        gameObjectTransform.position = new Vector3(targetTranformPosition.x, targetTranformPosition.y, gameObjectTransform.position.z);
     }
 }
