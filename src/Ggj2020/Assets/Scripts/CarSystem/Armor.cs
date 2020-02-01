@@ -1,7 +1,7 @@
 using System;
 
 [Flags]
-public enum HitZones
+public enum Armor
 {
 	LeftFront,
 	RightFront,

@@ -28,7 +28,7 @@ public class PlayerModel : ITickable
 	}
 
 	public int Coins => PlayerData.Coins;
-	public HitZones ArmorState => PlayerData.CarData.ArmorState;
+	public Armor ArmorState => PlayerData.CarData.ArmorState;
 
 	private void CheckPlayerAction(InputSignal signal, Action triggerAction)
 	{
@@ -50,6 +50,6 @@ public class PlayerModel : ITickable
 
 	public void RepairArmor()
 	{
-		PlayerData.CarData.SetArmorState(HitZones.All);
+		PlayerData.CarData.SetArmorState(Armor.All);
 	}
 }

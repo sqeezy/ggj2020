@@ -4,7 +4,7 @@ public class RepairService
 
 	public bool CanRepair(PlayerModel player)
 	{
-		return player.ArmorState != HitZones.All && player.Coins >= RepairCost;
+		return player.ArmorState != Armor.All && player.Coins >= RepairCost;
 	}
 
 	public void Repair(PlayerModel player)

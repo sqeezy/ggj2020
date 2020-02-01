@@ -1,6 +1,5 @@
 using System;
-using System.Data.Common;
-using ModestTree.Util;
+using CarSystem;
 using UnityEngine;
 using Random = System.Random;
 
@@ -11,7 +10,8 @@ public class CarData
 	public float RotationVelocity;
 	public CarAcceleration Acceleration;
 	public CarStearing Stearing;
-	public HitZones ArmorState = HitZones.All;
+	public Armor ArmorState;
+	public Weapon Weapon;
 
 	public event Action DataChanged = () => { };
 	private static readonly Random Rng = new Random();
@@ -47,9 +47,9 @@ public class CarData
 		DataChanged();
 	}
 
-	public void SetArmorState(HitZones all)
+	public void SetArmorState(Armor all)
 	{
-		ArmorState = HitZones.All;
+		ArmorState = Armor.All;
 		DataChanged();
 	}
 }
