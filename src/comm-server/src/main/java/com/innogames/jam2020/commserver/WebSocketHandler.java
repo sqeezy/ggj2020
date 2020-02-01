@@ -22,7 +22,8 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
-		log.debug("Client disconnected, session id {} from {}", session.getId(), session.getRemoteAddress());
+		log.debug("Client disconnected, session id {} from {} with status {}",
+				session.getId(), session.getRemoteAddress(), status);
 	}
 
 	@Override
