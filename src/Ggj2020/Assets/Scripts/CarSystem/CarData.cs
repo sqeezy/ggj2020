@@ -11,7 +11,7 @@ public class CarData
 	public float RotationVelocity;
 	public CarAcceleration Acceleration;
 	public CarStearing Stearing;
-	public uint ArmorLevel;
+	public int ArmorLevel;
 	public WeaponData WeaponData;
 
 	public event Action DataChanged = () => { };
@@ -48,9 +48,13 @@ public class CarData
 		DataChanged();
 	}
 
-	public void SetArmorLevel(uint armor)
+	public void SetArmorLevel(int armor)
 	{
 		ArmorLevel = armor;
 		DataChanged();
+	}
+
+	public void Reset()
+	{
 	}
 }
