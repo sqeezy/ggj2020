@@ -44,13 +44,7 @@ public class CarPresenter : MonoBehaviour
 	{
 		if (_observedData.ArmorLevel == 0)
 		{
-			var resetPosition =
-				MagicSingleton.GetStartPosition();
-			_observedData.SetVelocity(0);
-			_observedData.SetRotationVelocity(0);
-			_observedData.SetAcceleration(0);
-			_observedData.SetPosition(resetPosition);
-			gameObject.transform.position = resetPosition;
+			ResetCar();
 		}
 		else
 		{
@@ -58,9 +52,27 @@ public class CarPresenter : MonoBehaviour
 		}
 	}
 
+	private void ResetCar()
+	{
+		var resetPosition =
+			MagicSingleton.GetStartPosition();
+		_observedData.SetVelocity(0);
+		_observedData.SetRotationVelocity(0);
+		_observedData.SetAcceleration(0);
+		_observedData.SetPosition(resetPosition);
+		gameObject.transform.position = resetPosition;
+	}
+
 	public void Update()
 	{
 		_observedData.SetPosition(_body.position);
+
+		Vector2 cameraXY = GameModel.CameraPosition;
+		Vector2 carXY = _observedData.Position;
+		if ((cameraXY - carXY).magnitude > 50)
+		{
+			ResetCar();
+		}
 		UpdateMovement();
 	}
 
