@@ -1,6 +1,17 @@
 using CarSystem;
+using Environment;
 using UnityEngine;
+using UnityEngine.XR.WSA.Input;
 using Zenject;
+
+public class MagicSingleton
+{
+	public static Vector3 GetStartPosition()
+	{
+		return PlayerConfiguration.OffsetPosition(new Vector3(GameModel.CameraPosition.x,
+			GameModel.CameraPosition.y - 20, 0));
+	}
+}
 
 public class CarPresenter : MonoBehaviour
 {
@@ -35,6 +46,13 @@ public class CarPresenter : MonoBehaviour
 	{
 		if (_observedData.ArmorLevel == 0)
 		{
+			var resetPosition =
+				MagicSingleton.GetStartPosition();
+			_observedData.SetVelocity(0);
+			_observedData.SetRotationVelocity(0);
+			_observedData.SetAcceleration(0);
+			_observedData.SetPosition(resetPosition);
+			gameObject.transform.position = resetPosition;
 		}
 		else
 		{
