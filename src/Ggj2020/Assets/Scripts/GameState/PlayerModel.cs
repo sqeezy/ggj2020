@@ -23,16 +23,16 @@ public class PlayerModel : ITickable
 		_carModel = new CarModel(PlayerData.CarData);
 		_weaponModel = new WeaponModel(PlayerData.CarData.WeaponData);
 
-		_signalBus.Subscribe<InputSignal.LeftArrowUp>(m => CheckPlayerAction(m, _carModel.StopStearLeft));
-		_signalBus.Subscribe<InputSignal.LeftArrowDown>(m => CheckPlayerAction(m, _carModel.StartStearLeft));
-		_signalBus.Subscribe<InputSignal.RightArrowUp>(m => CheckPlayerAction(m, _carModel.StopStearRight));
-		_signalBus.Subscribe<InputSignal.RightArrowDown>(m => CheckPlayerAction(m, _carModel.StartStearRight));
-		_signalBus.Subscribe<InputSignal.ForwardArrowDown>(m => CheckPlayerAction(m, _carModel.StartAccelerate));
-		_signalBus.Subscribe<InputSignal.ForwardArrowUp>(m => CheckPlayerAction(m, _carModel.StopAccelerate));
-		_signalBus.Subscribe<InputSignal.DownArrowDown>(m => CheckPlayerAction(m, _carModel.StartBreak));
-		_signalBus.Subscribe<InputSignal.DownArrowUp>(m => CheckPlayerAction(m, _carModel.StopBreak));
-		_signalBus.Subscribe<InputSignal.UpgradeArmor>(m => CheckPlayerAction(m, HandleUpgradeArmor));
-		_signalBus.Subscribe<InputSignal.FireDown>(m => CheckPlayerAction(m, _weaponModel.Fire));
+		_signalBus.Subscribe<PlayerSignal.LeftArrowUp>(m => CheckPlayerAction(m, _carModel.StopStearLeft));
+		_signalBus.Subscribe<PlayerSignal.LeftArrowDown>(m => CheckPlayerAction(m, _carModel.StartStearLeft));
+		_signalBus.Subscribe<PlayerSignal.RightArrowUp>(m => CheckPlayerAction(m, _carModel.StopStearRight));
+		_signalBus.Subscribe<PlayerSignal.RightArrowDown>(m => CheckPlayerAction(m, _carModel.StartStearRight));
+		_signalBus.Subscribe<PlayerSignal.ForwardArrowDown>(m => CheckPlayerAction(m, _carModel.StartAccelerate));
+		_signalBus.Subscribe<PlayerSignal.ForwardArrowUp>(m => CheckPlayerAction(m, _carModel.StopAccelerate));
+		_signalBus.Subscribe<PlayerSignal.DownArrowDown>(m => CheckPlayerAction(m, _carModel.StartBreak));
+		_signalBus.Subscribe<PlayerSignal.DownArrowUp>(m => CheckPlayerAction(m, _carModel.StopBreak));
+		_signalBus.Subscribe<PlayerSignal.UpgradeArmor>(m => CheckPlayerAction(m, HandleUpgradeArmor));
+		_signalBus.Subscribe<PlayerSignal.FireDown>(m => CheckPlayerAction(m, _weaponModel.Fire));
 		_signalBus.Subscribe<GameSignals.ChangeResourceSignal>(m => CheckPlayerAction(m, HandleResourceChange));
 	}
 
@@ -54,7 +54,7 @@ public class PlayerModel : ITickable
 	public int Coins => PlayerData.Coins;
 	public uint ArmorLevel => PlayerData.CarData.ArmorLevel;
 
-	private void CheckPlayerAction(InputSignal signal, Action triggerAction)
+	private void CheckPlayerAction(PlayerSignal signal, Action triggerAction)
 	{
 		if (PlayerData.PlayerId == signal.PlayerId)
 		{
@@ -62,7 +62,7 @@ public class PlayerModel : ITickable
 		}
 	}
 
-	private void CheckPlayerAction(InputSignal signal, Action<GameSignals.ChangeResourceSignal> triggerAction)
+	private void CheckPlayerAction(PlayerSignal signal, Action<GameSignals.ChangeResourceSignal> triggerAction)
 	{
 		if (PlayerData.PlayerId == signal.PlayerId)
 		{

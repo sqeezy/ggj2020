@@ -18,12 +18,12 @@ namespace DriverInterface
 
 		public void Shoot()
 		{
-			_signalBus.Fire(new InputSignal.FireDown(_playerId.Get()).ToNetwork());
+			_signalBus.Fire(new PlayerSignal.FireDown(_playerId.Get()).ToNetwork());
 		}
 
 		public void Repair()
 		{
-			_signalBus.Fire(new InputSignal.UpgradeArmor(_playerId.Get()).ToNetwork());
+			_signalBus.Fire(new PlayerSignal.UpgradeArmor(_playerId.Get()).ToNetwork());
 		}
 	}
 }

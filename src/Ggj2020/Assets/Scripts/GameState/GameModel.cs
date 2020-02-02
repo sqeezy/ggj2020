@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -7,6 +8,7 @@ using Zenject;
 
 public class GameModel : ITickable
 {
+	
 	private readonly SignalBus _signalBus;
 	private readonly IPlayerBuilder _playerBuilder;
 	private Dictionary<string, PlayerModel> _registeredPlayers = new Dictionary<string, PlayerModel>();

@@ -19,12 +19,12 @@ namespace DriverInterface
 
 		protected override void down()
 		{
-			_signalBus.Fire(new InputSignal.ForwardArrowDown(_playerId.Get()).ToNetwork());
+			_signalBus.Fire(new PlayerSignal.ForwardArrowDown(_playerId.Get()).ToNetwork());
 		}
 
 		protected override void up()
 		{
-			_signalBus.Fire(new InputSignal.ForwardArrowUp(_playerId.Get()).ToNetwork());
+			_signalBus.Fire(new PlayerSignal.ForwardArrowUp(_playerId.Get()).ToNetwork());
 		}
 	}
 }
