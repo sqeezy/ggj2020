@@ -7,7 +7,7 @@ public class MagicSingleton
 	public static Vector3 GetStartPosition()
 	{
 		return PlayerConfiguration.OffsetPosition(new Vector3(GameModel.CameraPosition.x,
-			GameModel.CameraPosition.y - 20, 0));
+			GameModel.CameraPosition.y - 10, 0));
 	}
 }
 
