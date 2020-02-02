@@ -7,6 +7,7 @@ namespace CarSystem
 	public class ProjectileView : MonoBehaviour
 	{
 		private ITimeProvider _timeProvider;
+		private float _traveledDistance = 0;
 
 		[Inject]
 		public void Inject(ITimeProvider timeProvider)
@@ -25,17 +26,31 @@ namespace CarSystem
 
 		private void Update()
 		{
+			if (_traveledDistance > 25)
+			{
+				// gameObject.SetActive(false);
+				Destroy(this);
+				gameObject.SetActive(false);
+				return;
+			}
 			var go = gameObject;
 			var position = go.transform.position;
 
-			go.transform.position = position + position * (WeaponModel.MaxVelocity/2 * _timeProvider.DeltaTime);
+			var translation = go.transform.up * (WeaponModel.MaxVelocity * _timeProvider.DeltaTime);
+			position +=  translation;
+			go.transform.position = position;
+			_traveledDistance += translation.magnitude;
 		}
 
-		public void StartFly(Vector3 start, Quaternion direction)
+
+		public void StartFly(Transform parentTransform)
 		{
-			var go = gameObject;
-			go.transform.position = start;
-			go.transform.rotation = direction;
+			GameObject o = gameObject;
+			o.transform.SetParent(parentTransform);
+			o.transform.localPosition = Vector3.zero;
+			o.transform.localRotation = Quaternion.identity;
+			gameObject.transform.SetParent(null);
+			o.transform.localPosition += o.transform.up * 4;
 		}
 	}
 }

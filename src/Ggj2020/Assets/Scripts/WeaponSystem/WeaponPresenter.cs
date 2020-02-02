@@ -27,10 +27,13 @@ public class WeaponPresenter : MonoBehaviour
 	{
 		if (weapon == WeaponType.Single)
 		{
-			var sourcePosition = View.WorldGun1Out;
+			var source = View.WorldGun1Out;
+			var sourceTransform = source.transform;
 			var projectile = _assetService.GetAssetInstance(AssetCatalogue.Projectile);
-			var view = projectile.GetComponent<ProjectileView>();
-			view.StartFly(sourcePosition.transform.position, Quaternion.Euler(View.transform.TransformVector(CarModel.Forward)));
+			var view = projectile.GetComponentInChildren<ProjectileView>();
+			var start = sourceTransform.position;
+			var direction = -sourceTransform.right;
+			view.StartFly(sourceTransform);
 		}
 	}
 

@@ -3,14 +3,14 @@ namespace CarSystem
 	public class WeaponModel
 	{
 		private readonly WeaponData _observedData;
-		public const float MaxVelocity = CarModel.MaxVelocity + 5;
+		public const float MaxVelocity = CarModel.MaxVelocity + 7.5f;
 
 		public WeaponModel(WeaponData observedData)
 		{
 			_observedData = observedData;
 		}
 
-		private bool NoAmmo => _observedData.Ammo == 0;
+		private bool NoAmmo => false;// _observedData.Ammo == 0;
 
 		public void Fire()
 		{
