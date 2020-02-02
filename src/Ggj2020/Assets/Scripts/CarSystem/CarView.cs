@@ -127,7 +127,6 @@ namespace CarSystem
 
 		public void ForwardHit()
 		{
-			throw new System.NotImplementedException();
 		}
 	}
 }
