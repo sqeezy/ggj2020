@@ -30,12 +30,17 @@ public class PlayerConfiguration
 		Color.gray,
 	};
 
+	private static readonly float[] OffSetCycle = new[] {0f, 10, 20, -10, -20};
+
+	private static readonly Queue<Color> _colors = new Queue<Color>(RepeatTimes(ColorCycle, 1000));
+
+	public static readonly Queue<float> _xOffsets = new Queue<float>(RepeatTimes(OffSetCycle, 1000));
+
 	private static IEnumerable<T> RepeatTimes<T>(IEnumerable<T> input, int n)
 	{
 		return Enumerable.Range(0, n).Select(_ => input).SelectMany(l => l);
 	}
 
-	private static readonly Queue<Color> _colors = new Queue<Color>(RepeatTimes(ColorCycle, 100));
 	private readonly DiContainer _diContainer;
 	private readonly IAssetService _assetService;
 	private PlayerData _data;
@@ -63,9 +68,14 @@ public class PlayerConfiguration
 		var carView = carPresenter.gameObject.GetComponent<CarView>();
 		carView.MainColor = _colors.Dequeue();
 
-		carPresenter.transform.position = pos;
+		carPresenter.transform.position = MagicSingleton.GetStartPosition();
 		_carModel.UpdatePosition(_data.CarData.Position);
 		return this;
+	}
+
+	public static Vector3 OffsetPosition(Vector3 pos)
+	{
+		return new Vector3(pos.x + _xOffsets.Dequeue(),pos.y, pos.z);
 	}
 
 	private static CarData DefaultCarData()
