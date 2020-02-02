@@ -29,7 +29,7 @@ public class WebSocketService
 
 		var url = fullUri.ToString();
 		//uncomment following line to connect to the deployed server
-//		url = "ws://ggj.sqeezy.tech/socket";
+		//url = "ws://ggj.sqeezy.tech/socket";
 		
 		_webSocket = WebSocketFactory.CreateInstance(url);
 
