@@ -20,6 +20,7 @@ public class FollowTarget : MonoBehaviour
 	// Update is called once per frame
 	private void LateUpdate()
 	{
+		GameModel.CameraPosition = gameObject.transform.position;
 		FollowAllOtherThanLast();
 	}
 

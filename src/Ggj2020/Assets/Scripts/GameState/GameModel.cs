@@ -18,6 +18,8 @@ public class GameModel : ITickable
 		
 	}
 
+	public static Vector3 CameraPosition { get; set; }
+
 	public void Activate()
 	{
 		_signalBus.Subscribe<GameSignals.PlayerActionTriggered>(m => UpdatePlayerList(m.PlayerId));
@@ -42,22 +44,6 @@ public class GameModel : ITickable
 
 	public IEnumerable<PlayerModel> GetOrderedPlayers() =>
 		_registeredPlayers.Values.OrderByDescending(l => l.PlayerData.CarData.Position.y);
-
-	public PlayerModel GetFirstPlayer()
-	{
-		float maxFound = 0f;
-		PlayerModel first = null; 
-		foreach (var registeredPlayer in _registeredPlayers)
-		{
-			if (registeredPlayer.Value.PlayerData.CarData.Position.y > maxFound)
-			{
-				first = registeredPlayer.Value;
-				maxFound = registeredPlayer.Value.PlayerData.CarData.Position.y;
-			}
-		}
-
-		return first;
-	}
 
 	public void AddResourceForAllPlayers(int resources)
 	{

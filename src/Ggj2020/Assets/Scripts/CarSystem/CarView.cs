@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CarSystem
@@ -17,6 +18,8 @@ namespace CarSystem
 		[Range(0,7)]
 		public int ArmorLevel;
 		public List<CarLevel> AvailableLevels;
+
+		public event Action LooseArmorRequested = () => { };
 
 		private void Update()
 		{
@@ -127,6 +130,7 @@ namespace CarSystem
 
 		public void ForwardHit()
 		{
+			LooseArmorRequested();
 		}
 	}
 }

@@ -27,6 +27,20 @@ public class CarPresenter : MonoBehaviour
 
 		_observedData = observedData;
 		_observedData.DataChanged += CheckUpgrades;
+
+		View.LooseArmorRequested += ResolveHit;
+	}
+
+	private void ResolveHit()
+	{
+		if (_observedData.ArmorLevel == 0)
+		{
+			//reset
+		}
+		else
+		{
+			_observedData.SetArmorLevel(_observedData.ArmorLevel - 1);
+		}
 	}
 
 	public void Update()
@@ -36,8 +50,6 @@ public class CarPresenter : MonoBehaviour
 
 	public void LateUpdate()
 	{
-
-
 		UpdateMovement();
 	}
 
