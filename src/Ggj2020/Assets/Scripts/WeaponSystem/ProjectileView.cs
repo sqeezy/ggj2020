@@ -20,17 +20,19 @@ namespace CarSystem
 		{
 			if (other.GetComponent<Obstacle>() != null)
 			{
-				Destroy(this);
+				Destroy(gameObject);
 			}
+
 			var carView = other.gameObject.GetComponent<CarView>();
 			if (carView == null)
 			{
 				carView = other.GetComponentInParent<CarView>();
 			}
+
 			if (carView is CarView car)
 			{
 				car.ForwardHit();
-				Destroy(this);
+				Destroy(gameObject);
 			}
 		}
 
@@ -42,11 +44,12 @@ namespace CarSystem
 				gameObject.SetActive(false);
 				return;
 			}
+
 			var go = gameObject;
 			var position = go.transform.position;
 
 			var translation = go.transform.up * (WeaponModel.MaxVelocity * _timeProvider.DeltaTime);
-			position +=  translation;
+			position += translation;
 			go.transform.position = position;
 			_traveledDistance += translation.magnitude;
 		}
@@ -54,7 +57,7 @@ namespace CarSystem
 
 		public void StartFly(Transform parentTransform)
 		{
-			GameObject o = gameObject;
+			var o = gameObject;
 			o.transform.SetParent(parentTransform);
 			o.transform.localPosition = Vector3.zero;
 			o.transform.localRotation = Quaternion.identity;
