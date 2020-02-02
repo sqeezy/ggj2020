@@ -14,15 +14,15 @@ public class ProjectInstaller : MonoInstaller
 		Container.Bind<CoroutineProvider>().FromNewComponentOnNewGameObject().AsSingle();
 		Container.Bind<IGameStateFactory>().To<GameStateFactory>().AsSingle();
 		Container.Bind<IInitializable>().To<Main>().AsSingle();
-		Container.BindInterfacesAndSelfTo<GameModel>().AsSingle();
-		Container.Bind<IPlayerBuilder>().To<PlayerBuilder>().AsSingle();
 		Container.Bind<ITimeProvider>().To<TimeProvider>().AsSingle();
 		Container.Bind<WebSocketService>().AsSingle();
-		Container.Bind<ArmorSystem>().AsSingle();
 		Container.BindInterfacesAndSelfTo<MainThreadQueue>().AsSingle();
 		Container.Bind<PlayerId>().AsSingle();
 		Container.Bind<URLReader>().AsSingle();
+		Container.Bind<ArmorSystem>().AsSingle();
 		Container.Bind<ITickable>().To<ResourceSystem>().AsSingle();
+		Container.BindInterfacesAndSelfTo<GameModel>().AsSingle();
+		Container.Bind<IPlayerBuilder>().To<PlayerBuilder>().AsSingle();
 		DeclareSignals();
 	}
 
@@ -47,6 +47,7 @@ public class ProjectInstaller : MonoInstaller
 
 		Container.DeclareSignal<GameSignals.PlayerActionTriggered>().OptionalSubscriber();
 		Container.DeclareSignal<GameSignals.ChangeResourceSignal>().OptionalSubscriber();
+		Container.DeclareSignal<GameSignals.GotoStateSignal>().OptionalSubscriber();
 
 		Container.DeclareSignal<NetworkEvent>().OptionalSubscriber();
 	}
