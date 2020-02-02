@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -112,6 +113,16 @@ public class GameSignals
 		public ChangeResourceSignal(string playerId, int resources) : base(playerId)
 		{
 			Resources = resources;
+		}
+	}
+
+	public class GotoStateSignal 
+	{
+		public readonly Type TargetType;
+
+		public GotoStateSignal(Type targetType)
+		{
+			TargetType = targetType;
 		}
 	}
 }
