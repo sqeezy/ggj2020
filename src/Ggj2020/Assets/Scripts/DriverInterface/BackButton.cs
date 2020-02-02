@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GenericProvider;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,7 +6,7 @@ using Zenject;
 
 namespace DriverInterface
 {
-	public class BackButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+	public class BackButton : TouchyButton
 	{
 		private SignalBus _signalBus;
 		private PlayerId _playerId;
@@ -17,12 +18,12 @@ namespace DriverInterface
 			_playerId = playerId;
 		}
 
-		public void OnPointerDown(PointerEventData eventData)
+		protected override void down()
 		{
 			_signalBus.Fire(new InputSignal.DownArrowDown(_playerId.Get()).ToNetwork());
 		}
 
-		public void OnPointerUp(PointerEventData eventData)
+		protected override void up()
 		{
 			_signalBus.Fire(new InputSignal.DownArrowUp(_playerId.Get()).ToNetwork());
 		}

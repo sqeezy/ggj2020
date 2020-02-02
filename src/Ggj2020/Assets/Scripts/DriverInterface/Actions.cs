@@ -1,11 +1,10 @@
 using GenericProvider;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Zenject;
 
 namespace DriverInterface
 {
-	public class LeftButton : TouchyButton
+	public class Actions : MonoBehaviour
 	{
 		private SignalBus _signalBus;
 		private PlayerId _playerId;
@@ -17,14 +16,14 @@ namespace DriverInterface
 			_playerId = playerId;
 		}
 
-		protected override void down()
+		public void Shoot()
 		{
-			_signalBus.Fire(new InputSignal.LeftArrowDown(_playerId.Get()).ToNetwork());
+			_signalBus.Fire(new InputSignal.FireDown(_playerId.Get()).ToNetwork());
 		}
 
-		protected override void up()
+		public void Repair()
 		{
-			_signalBus.Fire(new InputSignal.LeftArrowUp(_playerId.Get()).ToNetwork());
+			_signalBus.Fire(new InputSignal.UpgradeArmor(_playerId.Get()).ToNetwork());
 		}
 	}
 }

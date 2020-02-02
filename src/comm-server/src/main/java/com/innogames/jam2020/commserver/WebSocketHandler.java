@@ -65,7 +65,10 @@ public class WebSocketHandler extends AbstractWebSocketHandler {
 
 		JSONObject json = new JSONObject(payload);
 		String playerId = json.getString(JSON_PLAYER_ID);
-		sessions.put(session, playerId);
+		String oldPlayerId = sessions.put(session, playerId);
+		if (MASTER.equals(playerId) && !playerId.equals(oldPlayerId)) {
+			log.debug("Session {} promoted itself to master!", session.getId());
+		}
 
 		//TODO: deal with multiple masters (kick out other masters) when detecting
 

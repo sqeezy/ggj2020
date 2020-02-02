@@ -5,11 +5,11 @@ using Zenject;
 
 namespace DriverInterface
 {
-	public class RightButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+	public class RightButton : TouchyButton
 	{
 		private SignalBus _signalBus;
 		private PlayerId _playerId;
-		
+
 		[Inject]
 		public void Init(SignalBus signalBus, PlayerId playerId)
 		{
@@ -17,12 +17,12 @@ namespace DriverInterface
 			_playerId = playerId;
 		}
 
-		public void OnPointerDown(PointerEventData eventData)
+		protected override void down()
 		{
 			_signalBus.Fire(new InputSignal.RightArrowDown(_playerId.Get()).ToNetwork());
 		}
 
-		public void OnPointerUp(PointerEventData eventData)
+		protected override void up()
 		{
 			_signalBus.Fire(new InputSignal.RightArrowUp(_playerId.Get()).ToNetwork());
 		}
