@@ -116,19 +116,6 @@ public class GameSignals
 	}
 }
 
-[Serializable]
-public class NetworkEvent
-{
-	public string PlayerId;
-	public string EventType;
-
-	public NetworkEvent(string playerId, string eventType)
-	{
-		PlayerId = playerId;
-		EventType = eventType;
-	}
-}
-
 public class InputSignal
 {
 	public readonly string PlayerId;
@@ -138,10 +125,9 @@ public class InputSignal
 		PlayerId = playerId;
 	}
 
-	public string ToJson()
+	public NetworkEvent ToNetwork()
 	{
-		var networkEvent = new NetworkEvent(PlayerId, this.GetType().ToString());
-		return JsonUtility.ToJson(networkEvent);
+		return new NetworkEvent(PlayerId, this.GetType().ToString());
 	}
 
 	public static InputSignal FromJson(string input)
@@ -151,9 +137,9 @@ public class InputSignal
 		return (InputSignal) Activator.CreateInstance(t, networkEvent.PlayerId);
 	}
 
-	public class ServerEvent : InputSignal
+	public class IAmMaster : InputSignal
 	{
-		public ServerEvent(string playerId) : base(playerId)
+		public IAmMaster(string playerId) : base(playerId)
 		{
 		}
 	}

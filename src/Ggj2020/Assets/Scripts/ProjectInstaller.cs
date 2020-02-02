@@ -40,12 +40,14 @@ public class ProjectInstaller : MonoInstaller
 		Container.DeclareSignal<InputSignal.DownArrowUp>().OptionalSubscriber();
 		Container.DeclareSignal<InputSignal.DownArrowDown>().OptionalSubscriber();
 
-		Container.DeclareSignal<InputSignal.ServerEvent>().OptionalSubscriber();
+		Container.DeclareSignal<InputSignal.IAmMaster>().OptionalSubscriber();
 		Container.DeclareSignal<InputSignal.UpgradeArmor>().OptionalSubscriber();
 		Container.DeclareSignal<InputSignal.FireDown>().OptionalSubscriber();
 		Container.DeclareSignal<InputSignal.FireUp>().OptionalSubscriber();
 
 		Container.DeclareSignal<GameSignals.PlayerActionTriggered>().OptionalSubscriber();
 		Container.DeclareSignal<GameSignals.ChangeResourceSignal>().OptionalSubscriber();
+
+		Container.DeclareSignal<NetworkEvent>().OptionalSubscriber();
 	}
 }

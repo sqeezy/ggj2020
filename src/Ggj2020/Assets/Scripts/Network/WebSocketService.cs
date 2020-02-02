@@ -37,6 +37,8 @@ public class WebSocketService
 		_webSocket.OnMessage += OnMessage;
 		_webSocket.OnError += OnError;
 		_webSocket.OnClose += OnClose;
+		
+		_signalBus.Subscribe<NetworkEvent>(m => Send(m.ToJson()));
 
 		Connect();
 	}
