@@ -9,6 +9,7 @@ public class WeaponPresenter : MonoBehaviour
 	public void Init(WeaponData observedData)
 	{
 		_observedData = observedData;
+		_observedData.DataChanged += UpdateView;
 
 		UpdateView();
 	}

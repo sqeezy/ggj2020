@@ -1,3 +1,5 @@
+using System;
+
 namespace CarSystem
 {
 	public enum WeaponType
@@ -11,6 +13,7 @@ namespace CarSystem
 		public WeaponType Type;
 		public uint Ammo;
 		public uint MaxAmmo;
+		public event Action DataChanged = () => { };
 
 		public static WeaponData Single()
 		{
@@ -25,6 +28,7 @@ namespace CarSystem
 		public void SetAmmo(uint newAmmo)
 		{
 			Ammo = newAmmo;
+			DataChanged();
 		}
 	}
 }

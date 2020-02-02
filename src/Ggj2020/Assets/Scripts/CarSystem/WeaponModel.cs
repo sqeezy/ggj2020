@@ -19,6 +19,8 @@ namespace CarSystem
 				return;
 			}
 
+			// create objects here????
+
 			_observedData.SetAmmo(_observedData.Ammo - 1);
 		}
 	}
