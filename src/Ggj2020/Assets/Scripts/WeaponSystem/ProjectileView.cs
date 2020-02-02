@@ -1,4 +1,5 @@
 using System;
+using Environment;
 using UnityEngine;
 using Zenject;
 
@@ -17,7 +18,16 @@ namespace CarSystem
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.gameObject.GetComponent<CarView>() is CarView car)
+			if (other.GetComponent<Obstacle>() != null)
+			{
+				Destroy(this);
+			}
+			var carView = other.gameObject.GetComponent<CarView>();
+			if (carView == null)
+			{
+				carView = other.GetComponentInParent<CarView>();
+			}
+			if (carView is CarView car)
 			{
 				car.ForwardHit();
 				Destroy(this);
@@ -28,7 +38,6 @@ namespace CarSystem
 		{
 			if (_traveledDistance > 50)
 			{
-				// gameObject.SetActive(false);
 				Destroy(this);
 				gameObject.SetActive(false);
 				return;
