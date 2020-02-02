@@ -62,7 +62,7 @@ namespace CarSystem
 			o.transform.localPosition = Vector3.zero;
 			o.transform.localRotation = Quaternion.identity;
 			gameObject.transform.SetParent(null);
-			o.transform.localPosition += o.transform.up * 4;
+			o.transform.localPosition += o.transform.up * 5;
 		}
 	}
 }
