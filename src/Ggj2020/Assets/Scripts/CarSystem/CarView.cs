@@ -28,8 +28,6 @@ public class CarView : MonoBehaviour
 		{
 			windowSprite.material.color = WindowColor;
 		} 
-		
-		//SetArmorLevel(ArmorLevel);
 	}
 
 	public void EnableLightsLeft()
