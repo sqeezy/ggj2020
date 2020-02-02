@@ -18,6 +18,7 @@ public class CoreGameState : IGameState
 	{
 		yield return _assetService.LoadAsset(AssetCatalogue.Car01);
 		yield return _assetService.LoadAsset(AssetCatalogue.Map01);
+		yield return _assetService.LoadAsset(AssetCatalogue.Projectile);
 	}
 
 	public IEnumerator Enter()

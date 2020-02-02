@@ -8,4 +8,5 @@ public static class AssetCatalogue
 	public static string StartMenu = "Content/UI/StartMenu";
 	public static string Map01 = "Content/Maps/Map01";
 	public static string DriverUI = "Content/UI/DriverUI";
+	public static string Projectile = "Content/Weapons/Projectile";
 }

@@ -3,7 +3,7 @@ namespace CarSystem
 	public class WeaponModel
 	{
 		private readonly WeaponData _observedData;
-		private const float MaxVelocity = CarModel.MaxVelocity + 5;
+		public const float MaxVelocity = CarModel.MaxVelocity + 5;
 
 		public WeaponModel(WeaponData observedData)
 		{
