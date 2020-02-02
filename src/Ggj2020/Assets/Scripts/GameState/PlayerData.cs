@@ -1,4 +1,6 @@
-﻿using Zenject;
+﻿using System.Linq.Expressions;
+using UnityEngine;
+using Zenject;
 
 public class PlayerData
 {
@@ -13,9 +15,8 @@ public class PlayerData
 		PlayerId = playerId;
 	}
 
-	public void SetCoins(int amount)
+	public void AddCoins(int amount)
 	{
-		Coins -= amount;
-		_signalBus.Fire(new GameSignals.ChangeResourceSignal(PlayerId, -amount));
+		Coins += amount;
 	}
 }

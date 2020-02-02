@@ -75,7 +75,6 @@ public class InputDispatcher : IInputDispatcher
 
 	public void UpgradeArmor(string playerId)
 	{
-		Debug.LogWarning("FireUpgrade event");
 		_signalBus.Fire(new InputSignal.UpgradeArmor(playerId));
 	}
 }

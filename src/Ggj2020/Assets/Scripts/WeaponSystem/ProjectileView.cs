@@ -10,6 +10,8 @@ namespace CarSystem
 		private ITimeProvider _timeProvider;
 		private float _traveledDistance = 0;
 
+		public Transform Owner { get; set; }
+
 		[Inject]
 		public void Inject(ITimeProvider timeProvider)
 		{
@@ -31,6 +33,11 @@ namespace CarSystem
 
 			if (carView is CarView car)
 			{
+				if (carView.transform == Owner)
+				{
+					return;
+				}
+
 				car.ForwardHit();
 				Destroy(gameObject);
 			}
@@ -62,7 +69,6 @@ namespace CarSystem
 			o.transform.localPosition = Vector3.zero;
 			o.transform.localRotation = Quaternion.identity;
 			gameObject.transform.SetParent(null);
-			o.transform.localPosition += o.transform.up * 5;
 		}
 	}
 }

@@ -38,7 +38,7 @@ public class PlayerModel : ITickable
 
 	private void HandleResourceChange(GameSignals.ChangeResourceSignal signal)
 	{
-		PlayerData.Coins += signal.Resources;
+		PlayerData.AddCoins(signal.Resources);
 	}
 
 	private void HandleUpgradeArmor()

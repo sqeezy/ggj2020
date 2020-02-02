@@ -31,6 +31,7 @@ public class WeaponPresenter : MonoBehaviour
 			var sourceTransform = source.transform;
 			var projectile = _assetService.GetAssetInstance(AssetCatalogue.Projectile);
 			var view = projectile.GetComponentInChildren<ProjectileView>();
+			view.Owner = transform;
 			var start = sourceTransform.position;
 			var direction = -sourceTransform.right;
 			view.StartFly(sourceTransform);

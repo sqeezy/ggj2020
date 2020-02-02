@@ -18,7 +18,9 @@ public class ArmorSystem
 
 	public bool CanUpgrade(PlayerData player)
 	{
-		return player.CarData.ArmorLevel < ArmorMax && player.Coins >= RepairCost;
+		var freeArmorSlot = player.CarData.ArmorLevel < ArmorMax;
+		var enoughMoney = player.Coins >= RepairCost;
+		return freeArmorSlot && enoughMoney;
 	}
 
 	public void Upgrade(PlayerData player)
@@ -28,7 +30,7 @@ public class ArmorSystem
 			return;
 		}
 
-		player.SetCoins(player.Coins - RepairCost);
+		player.AddCoins( - RepairCost);
 		player.CarData.SetArmorLevel(_upgradePaths[player.CarData.ArmorLevel]);
 	}
 }
