@@ -9,8 +9,8 @@ namespace CarSystem
 	public class WeaponData
 	{
 		public WeaponType Type;
-		public int Ammo;
-		public int MaxAmmo;
+		public uint Ammo;
+		public uint MaxAmmo;
 
 		public static WeaponData Single()
 		{
@@ -20,6 +20,11 @@ namespace CarSystem
 		public static WeaponData Triple()
 		{
 			return new WeaponData {Type = WeaponType.Triple, Ammo = 3, MaxAmmo = 5};
+		}
+
+		public void SetAmmo(uint newAmmo)
+		{
+			Ammo = newAmmo;
 		}
 	}
 }

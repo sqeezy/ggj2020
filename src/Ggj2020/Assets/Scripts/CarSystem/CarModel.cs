@@ -11,7 +11,7 @@ public class CarModel
 
 	private const float StearingFactor = 250f;
 	private const float VelocityChange = 5f;
-	private const float MaxVelocity = 30;
+	public const float MaxVelocity = 30;
 	public static readonly Vector3 Forward = Vector3.up;
 
 	public CarModel(CarData data)

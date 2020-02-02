@@ -10,6 +10,11 @@ public class WeaponPresenter : MonoBehaviour
 	{
 		_observedData = observedData;
 
+		UpdateView();
+	}
+
+	private void UpdateView()
+	{
 		View.SetWeaponType(_observedData.Type);
 	}
 }
