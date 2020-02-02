@@ -21,7 +21,7 @@ public class FollowTarget : MonoBehaviour
 	private void LateUpdate()
 	{
 		GameModel.CameraPosition = gameObject.transform.position;
-		FollowAllOtherThanLast();
+		FollowFirst();
 	}
 
 	private void FollowAllOtherThanLast()
