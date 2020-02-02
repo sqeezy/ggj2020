@@ -27,4 +27,14 @@ public class AssetService : IAssetService
 	{
 		return _diContainer.InstantiatePrefab(_preloadedObjects[assetId]);
 	}
+
+	public IEnumerator UnloadAsset(string assetId)
+	{
+		if (_preloadedObjects.ContainsKey(assetId))
+		{
+			_preloadedObjects.Remove(assetId);
+			//TODO unload from addressables
+		}
+		yield return null;
+	}
 }
