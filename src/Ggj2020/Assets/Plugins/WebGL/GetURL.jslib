@@ -10,7 +10,12 @@ mergeInto(LibraryManager.library, {
 
     GetQueryParam: function(paramId) {
         var urlParams = new URLSearchParams(location.search);
-        var param = urlParams.get(Pointer_stringify(paramId));
+        var paramName = Pointer_stringify(paramId);
+        if(!urlParams.has(paramName))
+        {
+            return null;
+        }
+        var param = urlParams.get(paramName);
         console.log("JavaScript read param: " + param);
         var bufferSize = lengthBytesUTF8(param) + 1;
         var buffer = _malloc(bufferSize);
