@@ -13,7 +13,6 @@ public class ProjectInstaller : MonoInstaller
 		Container.Bind<IAssetService>().To<AssetService>().AsSingle();
 		Container.Bind<CoroutineProvider>().FromNewComponentOnNewGameObject().AsSingle();
 		Container.Bind<IGameStateFactory>().To<GameStateFactory>().AsSingle();
-		Container.Bind<IInitializable>().To<Main>().AsSingle();
 		Container.Bind<ITimeProvider>().To<TimeProvider>().AsSingle();
 		Container.Bind<WebSocketService>().AsSingle();
 		Container.BindInterfacesAndSelfTo<MainThreadQueue>().AsSingle();
