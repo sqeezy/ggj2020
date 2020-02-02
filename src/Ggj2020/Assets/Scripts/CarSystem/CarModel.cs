@@ -14,9 +14,6 @@ public class CarModel
 	private const float MaxVelocity = 30;
 	public static readonly Vector3 Forward = Vector3.up;
 
-	public int PlayerId => _data.PlayerId;
-	public Vector3 Position => _data.Position;
-
 	public CarModel(CarData data)
 	{
 		_data = data;

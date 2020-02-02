@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
+using CarSystem;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,7 @@ public class PlayerModel : ITickable
 
 	public readonly PlayerData PlayerData;
 	private readonly CarModel _carModel;
+	private readonly WeaponModel _weaponModel;
 
 	public PlayerModel(SignalBus signalBus, PlayerData data, ArmorSystem armorSystem)
 	{
@@ -19,6 +21,7 @@ public class PlayerModel : ITickable
 		PlayerData = data;
 		_armorSystem = armorSystem;
 		_carModel = new CarModel(PlayerData.CarData);
+		_weaponModel = new WeaponModel(PlayerData.CarData.WeaponData);
 
 		_signalBus.Subscribe<InputSignal.LeftArrowUp>(m => CheckPlayerAction(m, _carModel.StopStearLeft));
 		_signalBus.Subscribe<InputSignal.LeftArrowDown>(m => CheckPlayerAction(m, _carModel.StartStearLeft));
@@ -29,6 +32,7 @@ public class PlayerModel : ITickable
 		_signalBus.Subscribe<InputSignal.DownArrowDown>(m => CheckPlayerAction(m, _carModel.StartBreak));
 		_signalBus.Subscribe<InputSignal.DownArrowUp>(m => CheckPlayerAction(m, _carModel.StopBreak));
 		_signalBus.Subscribe<InputSignal.UpgradeArmor>(m => CheckPlayerAction(m, HandleUpgradeArmor));
+		_signalBus.Subscribe<InputSignal.FireDown>(m => CheckPlayerAction(m, _weaponModel.Fire));
 		_signalBus.Subscribe<GameSignals.ChangeResourceSignal>(m => CheckPlayerAction(m, HandleResourceChange));
 	}
 

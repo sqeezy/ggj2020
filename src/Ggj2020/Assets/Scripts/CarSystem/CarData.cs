@@ -1,4 +1,5 @@
 using System;
+using System.Data.Common;
 using CarSystem;
 using UnityEngine;
 using Random = System.Random;
@@ -11,7 +12,7 @@ public class CarData
 	public CarAcceleration Acceleration;
 	public CarStearing Stearing;
 	public uint ArmorLevel;
-	public Weapon Weapon;
+	public WeaponData WeaponData;
 
 	public event Action DataChanged = () => { };
 	private static readonly Random Rng = new Random();

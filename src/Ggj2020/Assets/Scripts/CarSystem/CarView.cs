@@ -1,137 +1,128 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class WeaponGeometry
+namespace CarSystem
 {
-	public Transform WorldGun1Out;
-	public Transform WorldGun2Out1;
-	public Transform WorldGun2Out2;
-}
-
-public class CarView : MonoBehaviour
-{
-	public Color MainColor;
-	public Color WindowColor;
-
-	public List<SpriteRenderer> MainColorSprites;
-	public List<SpriteRenderer> WindowColorSprites;
-
-	public List<GameObject> LeftLights;
-	public List<GameObject> RightLights;
-
-	[Range(0,7)]
-	public int ArmorLevel;
-	public List<CarLevel> AvailableLevels;
-
-	[SerializeField]
-	public WeaponGeometry WeaponGeometry;
-	
-	private void Update()
+	public class CarView : MonoBehaviour
 	{
-		foreach (SpriteRenderer mainSprite in MainColorSprites)
-		{
-			mainSprite.material.color = MainColor;
-		}
-		
-		foreach (SpriteRenderer windowSprite in WindowColorSprites)
-		{
-			windowSprite.material.color = WindowColor;
-		} 
-	}
+		public Color MainColor;
+		public Color WindowColor;
 
-	public void EnableLightsLeft()
-	{
-		foreach (var leftLight in LeftLights)
+		public List<SpriteRenderer> MainColorSprites;
+		public List<SpriteRenderer> WindowColorSprites;
+
+		public List<GameObject> LeftLights;
+		public List<GameObject> RightLights;
+
+		[Range(0,7)]
+		public int ArmorLevel;
+		public List<CarLevel> AvailableLevels;
+
+		private void Update()
 		{
-			leftLight.SetActive(true);
-		}
-
-		foreach (var rightLight in RightLights)
-		{
-			rightLight.SetActive(false);
-		}
-	}
-
-	public void EnableLightsRight()
-	{
-		foreach (var leftLight in LeftLights)
-		{
-			leftLight.SetActive(false);
-		}
-
-		foreach (var rightLight in RightLights)
-		{
-			rightLight.SetActive(true);
-		}
-	}
-
-	public void DisableShadows()
-	{
-		foreach (var leftLight in LeftLights)
-		{
-			leftLight.SetActive(false);
-		}
-
-		foreach (var rightLight in RightLights)
-		{
-			rightLight.SetActive(false);
-		}
-	}
-
-
-	public void SetArmorLevel(uint armorLevel)
-	{
-		var oldLevel = AvailableLevels[ArmorLevel];
-		var newLevel = AvailableLevels[(int)armorLevel];
-		oldLevel.DeActivateLevel();
-		newLevel.ActivateLevel();
-		ArmorLevel = (int)armorLevel;
-	}
-
-	private void OnTriggerEnter(Collider other)
-	{
-		var light = other.gameObject.GetComponent<SpriteLight>();
-		if (light != null)
-		{
-			var targteDir = transform.position - light.transform.position;
-			var dir = AngleDir(transform.up, targteDir, transform.forward);
-			if (dir < 0)
+			foreach (SpriteRenderer mainSprite in MainColorSprites)
 			{
-				EnableLightsRight();
+				mainSprite.material.color = MainColor;
 			}
-			else
+
+			foreach (SpriteRenderer windowSprite in WindowColorSprites)
 			{
-				EnableLightsLeft();
+				windowSprite.material.color = WindowColor;
 			}
 		}
-	}
 
-	private void OnTriggerExit(Collider other)
-	{
-		var light = other.gameObject.GetComponent<SpriteLight>();
-		if (light != null)
+		public void EnableLightsLeft()
 		{
-			DisableShadows();
-		}
-	}
+			foreach (var leftLight in LeftLights)
+			{
+				leftLight.SetActive(true);
+			}
 
-	private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up)
-	{
-		var perpendicular = Vector3.Cross(fwd, targetDir);
-		var direction = Vector3.Dot(perpendicular, up);
-
-		if (direction > 0f)
-		{
-			return 1f;
+			foreach (var rightLight in RightLights)
+			{
+				rightLight.SetActive(false);
+			}
 		}
 
-		if (direction < 0f)
+		public void EnableLightsRight()
 		{
-			return -1f;
+			foreach (var leftLight in LeftLights)
+			{
+				leftLight.SetActive(false);
+			}
+
+			foreach (var rightLight in RightLights)
+			{
+				rightLight.SetActive(true);
+			}
 		}
 
-		return 0f;
+		public void DisableShadows()
+		{
+			foreach (var leftLight in LeftLights)
+			{
+				leftLight.SetActive(false);
+			}
+
+			foreach (var rightLight in RightLights)
+			{
+				rightLight.SetActive(false);
+			}
+		}
+
+
+		public void SetArmorLevel(uint armorLevel)
+		{
+			var oldLevel = AvailableLevels[ArmorLevel];
+			var newLevel = AvailableLevels[(int)armorLevel];
+			oldLevel.DeActivateLevel();
+			newLevel.ActivateLevel();
+			ArmorLevel = (int)armorLevel;
+		}
+
+		private void OnTriggerEnter(Collider other)
+		{
+			var light = other.gameObject.GetComponent<SpriteLight>();
+			if (light != null)
+			{
+				var targteDir = transform.position - light.transform.position;
+				var dir = AngleDir(transform.up, targteDir, transform.forward);
+				if (dir < 0)
+				{
+					EnableLightsRight();
+				}
+				else
+				{
+					EnableLightsLeft();
+				}
+			}
+		}
+
+		private void OnTriggerExit(Collider other)
+		{
+			var light = other.gameObject.GetComponent<SpriteLight>();
+			if (light != null)
+			{
+				DisableShadows();
+			}
+		}
+
+		private float AngleDir(Vector3 fwd, Vector3 targetDir, Vector3 up)
+		{
+			var perpendicular = Vector3.Cross(fwd, targetDir);
+			var direction = Vector3.Dot(perpendicular, up);
+
+			if (direction > 0f)
+			{
+				return 1f;
+			}
+
+			if (direction < 0f)
+			{
+				return -1f;
+			}
+
+			return 0f;
+		}
 	}
 }

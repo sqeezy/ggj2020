@@ -38,9 +38,12 @@ public class PlayerConfiguration
 	{
 		_data.CarData = DefaultCarData();
 		_carModel = new CarModel(_data.CarData);
-		var carPresenter = _assetService.GetAssetInstance(AssetCatalogue.Car01).GetComponent<CarPresenter>();
+		var carInstance = _assetService.GetAssetInstance(AssetCatalogue.Car01);
+		var carPresenter = carInstance.GetComponent<CarPresenter>();
 		carPresenter.Init(_data.CarData);
 
+		var weaponPresenter = carInstance.GetComponent<WeaponPresenter>();
+		weaponPresenter.Init(_data.CarData.WeaponData);
 		var pos = carPresenter.transform.position;
 		var carView = carPresenter.gameObject.GetComponent<CarView>();
 		carView.MainColor = _data.PlayerId == "0" ? Color.red : Color.green;
@@ -52,7 +55,7 @@ public class PlayerConfiguration
 
 	private static CarData DefaultCarData()
 	{
-		return new CarData {Weapon = Weapon.Projectile(), ArmorLevel = 0};
+		return new CarData {WeaponData = WeaponData.Single(), ArmorLevel = 0};
 	}
 
 	public PlayerModel Build()

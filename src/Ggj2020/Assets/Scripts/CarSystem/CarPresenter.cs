@@ -1,4 +1,4 @@
-using System;
+using CarSystem;
 using UnityEngine;
 using Zenject;
 
@@ -14,7 +14,6 @@ public class CarPresenter : MonoBehaviour
 	public void Inject(ITimeProvider timeProvider)
 	{
 		_timeProvider = timeProvider;
-		
 	}
 
 	private void CheckUpgrades()
