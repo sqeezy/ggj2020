@@ -21,7 +21,7 @@ namespace GenericProvider
 			{
 				return GetQueryParam(paramId);
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 				Debug.Log("Could not detect url we are running on, probably a Unity play mode?");
 				return null;
@@ -45,7 +45,7 @@ namespace GenericProvider
 			{
 				return GetURLFromPage();
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 				Debug.Log("Could not detect url we are running on, probably a Unity play mode?");
 				return "http://localhost:8080/";
