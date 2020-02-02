@@ -15,7 +15,7 @@ public class InitGameState : IGameState
 	
 	public IEnumerator Load()
 	{
-		yield return Addressables.InitializeAsync();
+		yield return null;
 	}
 
 	public IEnumerator Enter()
