@@ -35,7 +35,6 @@ public class CarPresenter : MonoBehaviour
 	{
 		if (_observedData.ArmorLevel == 0)
 		{
-			//reset
 		}
 		else
 		{
@@ -46,10 +45,6 @@ public class CarPresenter : MonoBehaviour
 	public void Update()
 	{
 		_observedData.SetPosition(_body.position);
-	}
-
-	public void LateUpdate()
-	{
 		UpdateMovement();
 	}
 
