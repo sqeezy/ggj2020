@@ -26,7 +26,7 @@ namespace CarSystem
 
 		private void Update()
 		{
-			if (_traveledDistance > 25)
+			if (_traveledDistance > 50)
 			{
 				// gameObject.SetActive(false);
 				Destroy(this);
