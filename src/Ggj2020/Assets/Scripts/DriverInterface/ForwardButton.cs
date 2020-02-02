@@ -5,7 +5,7 @@ using Zenject;
 
 namespace DriverInterface
 {
-	public class ForwardButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+	public class ForwardButton : TouchyButton
 	{
 		private SignalBus _signalBus;
 		private PlayerId _playerId;
@@ -17,12 +17,12 @@ namespace DriverInterface
 			_playerId = playerId;
 		}
 
-		public void OnPointerDown(PointerEventData eventData)
+		protected override void down()
 		{
 			_signalBus.Fire(new InputSignal.ForwardArrowDown(_playerId.Get()).ToNetwork());
 		}
 
-		public void OnPointerUp(PointerEventData eventData)
+		protected override void up()
 		{
 			_signalBus.Fire(new InputSignal.ForwardArrowUp(_playerId.Get()).ToNetwork());
 		}
