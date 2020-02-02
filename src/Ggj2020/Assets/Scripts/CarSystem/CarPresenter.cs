@@ -1,7 +1,5 @@
 using CarSystem;
-using Environment;
 using UnityEngine;
-using UnityEngine.XR.WSA.Input;
 using Zenject;
 
 public class MagicSingleton
