@@ -43,10 +43,12 @@ public class PlayerModel : ITickable
 
 	private void HandleUpgradeArmor()
 	{
-		if (_armorSystem.CanUpgrade(PlayerData))
+		if (!_armorSystem.CanUpgrade(PlayerData))
 		{
-			_armorSystem.Upgrade(PlayerData);
+			return;
 		}
+
+		_armorSystem.Upgrade(PlayerData);
 	}
 
 	public int Coins => PlayerData.Coins;
