@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -23,7 +20,7 @@ public class FollowTarget : MonoBehaviour
 	// Update is called once per frame
 	private void LateUpdate()
 	{
-		FollowFirst();
+		FollowAllOtherThanLast();
 	}
 
 	private void FollowAllOtherThanLast()
@@ -37,10 +34,10 @@ public class FollowTarget : MonoBehaviour
 		var first = orderedPlayers.FirstOrDefault();
 		var secondToLast = orderedPlayers.Skip(orderedPlayers.Length - 2).FirstOrDefault();
 
-		var y1 = first?.PlayerData.CarData.Position.y ?? CameraPositon.y;
-		var y2 = secondToLast?.PlayerData.CarData.Position.y ?? CameraPositon.y;
-
+		var y1 = first?.PlayerData.CarData.Position.y ?? CameraPosition.y;
+		var y2 = secondToLast?.PlayerData.CarData.Position.y ?? CameraPosition.y;
 		var mid = (y1 + y2) / 2;
+		
 		UpdateCameraY(mid);
 	}
 
@@ -57,8 +54,8 @@ public class FollowTarget : MonoBehaviour
 
 	private void UpdateCameraY(float positionY)
 	{
-		gameObject.transform.position = new Vector3(CameraPositon.x, positionY - 5, CameraPositon.z);
+		gameObject.transform.position = new Vector3(CameraPosition.x, positionY - 5, CameraPosition.z);
 	}
 
-	private Vector3 CameraPositon => gameObject.transform.position;
+	private Vector3 CameraPosition => gameObject.transform.position;
 }
