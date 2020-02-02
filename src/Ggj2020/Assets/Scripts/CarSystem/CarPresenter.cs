@@ -16,7 +16,7 @@ public class CarPresenter : MonoBehaviour
 		_timeProvider = timeProvider;
 	}
 
-	private void ResolveDataChanges()
+	private void CheckUpgrades()
 	{
 		View.SetArmorLevel(_observedData.ArmorLevel);
 	}
@@ -26,22 +26,7 @@ public class CarPresenter : MonoBehaviour
 		_body = gameObject.GetComponent<Rigidbody>();
 
 		_observedData = observedData;
-		_observedData.DataChanged += ResolveDataChanges;
-
-		View.CarWasHit += ResolveHit;
-	}
-
-	private void ResolveHit()
-	{
-		int observedDataArmorLevel = _observedData.ArmorLevel - 1;
-		if (observedDataArmorLevel < 0)
-		{
-			_observedData.Reset();
-		}
-		else
-		{
-			_observedData.SetArmorLevel(observedDataArmorLevel);
-		}
+		_observedData.DataChanged += CheckUpgrades;
 	}
 
 	public void Update()
@@ -51,6 +36,8 @@ public class CarPresenter : MonoBehaviour
 
 	public void LateUpdate()
 	{
+
+
 		UpdateMovement();
 	}
 

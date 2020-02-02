@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace CarSystem
@@ -72,13 +71,13 @@ namespace CarSystem
 		}
 
 
-		public void SetArmorLevel(int armorLevel)
+		public void SetArmorLevel(uint armorLevel)
 		{
 			var oldLevel = AvailableLevels[ArmorLevel];
-			var newLevel = AvailableLevels[armorLevel];
+			var newLevel = AvailableLevels[(int)armorLevel];
 			oldLevel.DeActivateLevel();
 			newLevel.ActivateLevel();
-			ArmorLevel = armorLevel;
+			ArmorLevel = (int)armorLevel;
 		}
 
 		private void OnTriggerEnter(Collider other)
@@ -126,10 +125,9 @@ namespace CarSystem
 			return 0f;
 		}
 
-		public event Action CarWasHit = () => { };
 		public void ForwardHit()
 		{
-			CarWasHit();
+			throw new System.NotImplementedException();
 		}
 	}
 }

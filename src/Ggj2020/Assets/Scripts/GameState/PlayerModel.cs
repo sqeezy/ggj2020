@@ -52,7 +52,7 @@ public class PlayerModel : ITickable
 	}
 
 	public int Coins => PlayerData.Coins;
-	public int ArmorLevel => PlayerData.CarData.ArmorLevel;
+	public uint ArmorLevel => PlayerData.CarData.ArmorLevel;
 
 	private void CheckPlayerAction(InputSignal signal, Action triggerAction)
 	{

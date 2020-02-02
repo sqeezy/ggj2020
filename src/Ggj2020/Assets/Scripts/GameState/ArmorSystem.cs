@@ -3,9 +3,9 @@ using System.Collections.Generic;
 public class ArmorSystem
 {
 	private const int RepairCost = 200;
-	private const int ArmorMax = 7;
+	private const ulong ArmorMax = 7;
 
-	private static readonly Dictionary<int, int> _upgradePaths = new Dictionary<int, int>
+	private static readonly Dictionary<uint, uint> _upgradePaths = new Dictionary<uint, uint>
 	{
 		{0, 2},
 		{1, 2},
