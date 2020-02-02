@@ -31,5 +31,10 @@ namespace CarSystem
 			Ammo = newAmmo;
 			DataChanged();
 		}
+
+		public void RequestFire()
+		{
+			FireRequested(Type);
+		}
 	}
 }
