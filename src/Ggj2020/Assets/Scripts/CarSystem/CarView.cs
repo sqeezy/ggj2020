@@ -82,11 +82,11 @@ namespace CarSystem
 
 		private void OnTriggerEnter(Collider other)
 		{
-			var light = other.gameObject.GetComponent<SpriteLight>();
-			if (light != null)
+			if (other.gameObject.GetComponent<SpriteLight>() is SpriteLight spriteLight)
 			{
-				var targteDir = transform.position - light.transform.position;
-				var dir = AngleDir(transform.up, targteDir, transform.forward);
+				var t = transform;
+				var targetDir = t.position - spriteLight.transform.position;
+				var dir = AngleDir(t.up, targetDir, t.forward);
 				if (dir < 0)
 				{
 					EnableLightsRight();
@@ -123,6 +123,11 @@ namespace CarSystem
 			}
 
 			return 0f;
+		}
+
+		public void ForwardHit()
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

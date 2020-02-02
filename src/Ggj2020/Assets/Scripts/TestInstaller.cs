@@ -31,5 +31,6 @@ class DummyStarter : IInitializable
 	private IEnumerator StartGame()
 	{
 		yield return _assetService.LoadAsset(AssetCatalogue.Car01);
+		yield return _assetService.LoadAsset(AssetCatalogue.Projectile);
 	}
 }

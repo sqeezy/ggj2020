@@ -14,6 +14,7 @@ namespace CarSystem
 		public uint Ammo;
 		public uint MaxAmmo;
 		public event Action DataChanged = () => { };
+		public event Action<WeaponType> FireRequested = wt => { };
 
 		public static WeaponData Single()
 		{
@@ -29,6 +30,11 @@ namespace CarSystem
 		{
 			Ammo = newAmmo;
 			DataChanged();
+		}
+
+		public void RequestFire()
+		{
+			FireRequested(Type);
 		}
 	}
 }
