@@ -6,7 +6,7 @@ mergeInto(LibraryManager.library, {
         var buffer = _malloc(bufferSize);
         stringToUTF8(returnStr, buffer, bufferSize);
         return buffer;
-    }
+    },
 
     GetQueryParam: function(paramId) {
         var urlParams = new URLSearchParams(location.search);
