@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: Map01
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 927e1466dc0174f0bb4e3020724aad4e
+    m_Address: DriverUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: b0b9bd31d1b5642a581fbb54a5328de6
     m_Address: CarTemplate01
     m_ReadOnly: 0
