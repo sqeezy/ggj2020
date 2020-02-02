@@ -4,7 +4,8 @@ using UnityEngine;
 
 public static class AssetCatalogue
 {
-	public static string Car01 = "CarTemplate01";
-	public static string StartMenu = "StartMenu";
-	public static string Map01 = "Map01";
+	public static string Car01 = "Content/Car/Car01";
+	public static string StartMenu = "Content/UI/StartMenu";
+	public static string Map01 = "Content/Maps/Map01";
+	public static string DriverUI = "Content/UI/DriverUI";
 }

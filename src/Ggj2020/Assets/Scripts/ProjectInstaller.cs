@@ -10,7 +10,8 @@ public class ProjectInstaller : MonoInstaller
 		Container.Bind<IInputDispatcher>().To<InputDispatcher>().AsSingle();
 		Container.Bind<IInputPlugin>().To<KeyboardInputPlugin>().AsSingle();
 		Container.Bind<ITickable>().To<InputService>().AsSingle();
-		Container.Bind<IAssetService>().To<AssetService>().AsSingle();
+		//Container.Bind<IAssetService>().To<AssetService>().AsSingle();
+		Container.Bind<IAssetService>().To<ResourcesAssetLoader>().AsSingle();
 		Container.Bind<CoroutineProvider>().FromNewComponentOnNewGameObject().AsSingle();
 		Container.Bind<IGameStateFactory>().To<GameStateFactory>().AsSingle();
 		Container.Bind<ITimeProvider>().To<TimeProvider>().AsSingle();

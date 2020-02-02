@@ -16,19 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 9e864a88dc2cc4f2d8b7d74e2b6112d8
-  m_SerializeEntries:
-  - m_GUID: 7b41136565f2a464b8e9835a9e68dcca
-    m_Address: Map01
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: b0b9bd31d1b5642a581fbb54a5328de6
-    m_Address: CarTemplate01
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: b2794ac7bc6d04bb3bafd48def291869
-    m_Address: StartMenu
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 5972e7d3500c64f83a67965875efad5d, type: 2}
   m_SchemaSet:
