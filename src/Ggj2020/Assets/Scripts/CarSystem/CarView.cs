@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class WeaponGeometry
+{
+	public Transform WorldGun1Out;
+	public Transform WorldGun2Out1;
+	public Transform WorldGun2Out2;
+}
+
 public class CarView : MonoBehaviour
 {
 	public Color MainColor;
@@ -15,7 +23,10 @@ public class CarView : MonoBehaviour
 
 	[Range(0,7)]
 	public int ArmorLevel;
-	public List<CarLevel> AvailableLevels; 
+	public List<CarLevel> AvailableLevels;
+
+	[SerializeField]
+	public WeaponGeometry WeaponGeometry;
 	
 	private void Update()
 	{
