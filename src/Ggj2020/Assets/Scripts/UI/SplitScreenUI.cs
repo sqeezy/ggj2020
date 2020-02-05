@@ -10,7 +10,9 @@ public class SplitScreenUI : MonoBehaviour
 {
 	public List<ScreenLayout> AvailableLayouts;
 
-	public List<PlayerSplitCam> ActiveCameras;
+	private List<PlayerSplitCam> _activeCameras = new List<PlayerSplitCam>();
+	private int _activeNumberOfPlayers;
+
 	[Inject]
 	public void Inject(SignalBus bus)
 	{
@@ -19,10 +21,23 @@ public class SplitScreenUI : MonoBehaviour
 
 	private void AddNewPlayerCam(GameSignals.AddPlayerCam signal)
 	{
-		ActiveCameras.Add(signal.PlayerSplitCam);
+		_activeNumberOfPlayers++;
+		_activeCameras.Add(signal.PlayerSplitCam);
+		UpdateScreenLayout();
+	}
+
+	private void UpdateScreenLayout()
+	{
 		foreach (var layout in AvailableLayouts)
 		{
-			layout.Disable();
+			if (layout.NumberOfPlayers != _activeNumberOfPlayers)
+			{
+				layout.Disable();
+			}
+			else
+			{
+				layout.Enable(_activeCameras);
+			}
 		}
 	}
 }

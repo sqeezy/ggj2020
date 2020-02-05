@@ -18,10 +18,6 @@ public class PlayerSplitCam : MonoBehaviour
 	[Inject]
 	public void Inject(SignalBus bus)
 	{
-		var rt = new RenderTexture(1024, 1024, 16, RenderTextureFormat.ARGB32);
-		rt.Create();
-		TargetCamera.targetTexture = rt;
 		_signalBus = bus;
-
 	}
 }

@@ -44,7 +44,8 @@ public class ProjectInstaller : MonoInstaller
 		Container.DeclareSignal<PlayerSignal.UpgradeArmor>().OptionalSubscriber();
 		Container.DeclareSignal<PlayerSignal.FireDown>().OptionalSubscriber();
 		Container.DeclareSignal<PlayerSignal.FireUp>().OptionalSubscriber();
-
+		
+		Container.DeclareSignal<GameSignals.AddPlayerCam>().OptionalSubscriber();
 		Container.DeclareSignal<GameSignals.PlayerActionTriggered>().OptionalSubscriber();
 		Container.DeclareSignal<GameSignals.ChangeResourceSignal>().OptionalSubscriber();
 		Container.DeclareSignal<GameSignals.GotoStateSignal>().OptionalSubscriber();
