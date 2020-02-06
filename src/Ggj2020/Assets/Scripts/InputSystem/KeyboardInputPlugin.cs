@@ -27,6 +27,12 @@ public class KeyboardInputPlugin : IInputPlugin
 		{
 			player.CheckInput();
 		}
+
+		AddDummyTestPlayers();
+	}
+
+	private void AddDummyTestPlayers()
+	{
 		if (Input.GetKey(KeyCode.P))
 		{
 			int playerNumber = 5;
