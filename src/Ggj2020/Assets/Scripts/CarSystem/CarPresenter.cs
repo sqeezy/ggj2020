@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using CarSystem;
 using UnityEngine;
 using Zenject;
@@ -54,13 +55,7 @@ public class CarPresenter : MonoBehaviour
 
 	private void ResetCar()
 	{
-		var resetPosition =
-			MagicSingleton.GetStartPosition();
-		_observedData.SetVelocity(0);
-		_observedData.SetRotationVelocity(0);
-		_observedData.SetAcceleration(0);
-		_observedData.SetPosition(resetPosition);
-		gameObject.transform.position = resetPosition;
+		Debug.LogError("Car dead is not implemented");
 	}
 
 	public void Update()
@@ -69,10 +64,7 @@ public class CarPresenter : MonoBehaviour
 
 		Vector2 cameraXY = GameModel.CameraPosition;
 		Vector2 carXY = _observedData.Position;
-		if ((cameraXY - carXY).magnitude > 50)
-		{
-			ResetCar();
-		}
+		
 		UpdateMovement();
 	}
 

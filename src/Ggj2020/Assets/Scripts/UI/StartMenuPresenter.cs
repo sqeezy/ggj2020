@@ -22,7 +22,7 @@ public class StartMenuPresenter : MonoBehaviour
         {
             _playerId.MakeMeMaster();
             // dummy event to inform comm server that we are master
-            _signalBus.Fire((new InputSignal.IAmMaster(_playerId.Get()).ToNetwork()));
+            _signalBus.Fire((new PlayerSignal.IAmMaster(_playerId.Get()).ToNetwork()));
             _signalBus.Fire(new GameSignals.GotoStateSignal(typeof(CoreGameState)));
         }
         else

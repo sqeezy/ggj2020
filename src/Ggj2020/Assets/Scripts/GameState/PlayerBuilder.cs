@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using CarSystem;
+using GenericProvider;
 using UnityEngine;
 using Zenject;
 
@@ -59,10 +60,12 @@ public class PlayerConfiguration
 		_data.CarData = DefaultCarData();
 		_carModel = new CarModel(_data.CarData);
 		var carInstance = _assetService.GetAssetInstance(AssetCatalogue.Car01);
-		var carPresenter = carInstance.GetComponent<CarPresenter>();
+		var carPresenter = carInstance.GetComponentInChildren<CarPresenter>();
 		carPresenter.Init(_data.CarData);
+		var camera = carInstance.GetComponentInChildren<PlayerSplitCam>();
+		camera.Init(_data.PlayerId);
 
-		var weaponPresenter = carInstance.GetComponent<WeaponPresenter>();
+		var weaponPresenter = carInstance.GetComponentInChildren<WeaponPresenter>();
 		weaponPresenter.Init(_data.CarData.WeaponData);
 		var pos = carPresenter.transform.position;
 		var carView = carPresenter.gameObject.GetComponent<CarView>();

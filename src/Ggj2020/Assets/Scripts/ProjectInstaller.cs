@@ -28,23 +28,24 @@ public class ProjectInstaller : MonoInstaller
 
 	private void DeclareSignals()
 	{
-		Container.DeclareSignal<InputSignal.LeftArrowUp>().OptionalSubscriber();
-		Container.DeclareSignal<InputSignal.LeftArrowDown>().OptionalSubscriber();
+		Container.DeclareSignal<PlayerSignal.LeftArrowUp>().OptionalSubscriber();
+		Container.DeclareSignal<PlayerSignal.LeftArrowDown>().OptionalSubscriber();
 
-		Container.DeclareSignal<InputSignal.RightArrowUp>().OptionalSubscriber();
-		Container.DeclareSignal<InputSignal.RightArrowDown>().OptionalSubscriber();
+		Container.DeclareSignal<PlayerSignal.RightArrowUp>().OptionalSubscriber();
+		Container.DeclareSignal<PlayerSignal.RightArrowDown>().OptionalSubscriber();
 
-		Container.DeclareSignal<InputSignal.ForwardArrowUp>().OptionalSubscriber();
-		Container.DeclareSignal<InputSignal.ForwardArrowDown>().OptionalSubscriber();
+		Container.DeclareSignal<PlayerSignal.ForwardArrowUp>().OptionalSubscriber();
+		Container.DeclareSignal<PlayerSignal.ForwardArrowDown>().OptionalSubscriber();
 
-		Container.DeclareSignal<InputSignal.DownArrowUp>().OptionalSubscriber();
-		Container.DeclareSignal<InputSignal.DownArrowDown>().OptionalSubscriber();
+		Container.DeclareSignal<PlayerSignal.DownArrowUp>().OptionalSubscriber();
+		Container.DeclareSignal<PlayerSignal.DownArrowDown>().OptionalSubscriber();
 
-		Container.DeclareSignal<InputSignal.IAmMaster>().OptionalSubscriber();
-		Container.DeclareSignal<InputSignal.UpgradeArmor>().OptionalSubscriber();
-		Container.DeclareSignal<InputSignal.FireDown>().OptionalSubscriber();
-		Container.DeclareSignal<InputSignal.FireUp>().OptionalSubscriber();
-
+		Container.DeclareSignal<PlayerSignal.IAmMaster>().OptionalSubscriber();
+		Container.DeclareSignal<PlayerSignal.UpgradeArmor>().OptionalSubscriber();
+		Container.DeclareSignal<PlayerSignal.FireDown>().OptionalSubscriber();
+		Container.DeclareSignal<PlayerSignal.FireUp>().OptionalSubscriber();
+		
+		Container.DeclareSignal<GameSignals.AddPlayerCam>().OptionalSubscriber();
 		Container.DeclareSignal<GameSignals.PlayerActionTriggered>().OptionalSubscriber();
 		Container.DeclareSignal<GameSignals.ChangeResourceSignal>().OptionalSubscriber();
 		Container.DeclareSignal<GameSignals.GotoStateSignal>().OptionalSubscriber();

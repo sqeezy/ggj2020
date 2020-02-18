@@ -15,67 +15,67 @@ public class InputDispatcher : IInputDispatcher
 
 	public void LeftArrowDown(string playerId)
 	{
-		_signalBus.Fire(new InputSignal.LeftArrowDown(playerId));
+		_signalBus.Fire(new PlayerSignal.LeftArrowDown(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void LeftArrowUp(string playerId)
 	{
-		_signalBus.Fire(new InputSignal.LeftArrowUp(playerId));
+		_signalBus.Fire(new PlayerSignal.LeftArrowUp(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void RightArrowDown(string playerId)
 	{
-		_signalBus.Fire(new InputSignal.RightArrowDown(playerId));
+		_signalBus.Fire(new PlayerSignal.RightArrowDown(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void RightArrowUp(string playerId)
 	{
-		_signalBus.Fire(new InputSignal.RightArrowUp(playerId));
+		_signalBus.Fire(new PlayerSignal.RightArrowUp(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void ForwardArrowUp(string playerId)
 	{
-		_signalBus.Fire(new InputSignal.ForwardArrowUp(playerId));
+		_signalBus.Fire(new PlayerSignal.ForwardArrowUp(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void ForwardArrowDown(string playerId)
 	{
-		_signalBus.Fire(new InputSignal.ForwardArrowDown(playerId));
+		_signalBus.Fire(new PlayerSignal.ForwardArrowDown(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void DownArrowUp(string playerId)
 	{
-		_signalBus.Fire(new InputSignal.DownArrowUp(playerId));
+		_signalBus.Fire(new PlayerSignal.DownArrowUp(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void DownArrowDown(string playerId)
 	{
-		_signalBus.Fire(new InputSignal.DownArrowDown(playerId));
+		_signalBus.Fire(new PlayerSignal.DownArrowDown(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void FireDown(string playerId)
 	{
-		_signalBus.Fire(new InputSignal.FireDown(playerId));
+		_signalBus.Fire(new PlayerSignal.FireDown(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void FireUp(string playerId)
 	{
-		_signalBus.Fire(new InputSignal.FireUp(playerId));
+		_signalBus.Fire(new PlayerSignal.FireUp(playerId));
 		_signalBus.Fire(new GameSignals.PlayerActionTriggered(playerId));
 	}
 
 	public void UpgradeArmor(string playerId)
 	{
-		_signalBus.Fire(new InputSignal.UpgradeArmor(playerId));
+		_signalBus.Fire(new PlayerSignal.UpgradeArmor(playerId));
 	}
 }
 
@@ -106,7 +106,7 @@ public class GameSignals
 		}
 	}
 
-	public class ChangeResourceSignal : InputSignal
+	public class ChangeResourceSignal : PlayerSignal
 	{
 		public readonly int Resources;
 
@@ -125,13 +125,23 @@ public class GameSignals
 			TargetType = targetType;
 		}
 	}
+
+	public class AddPlayerCam : PlayerSignal
+	{
+		public readonly PlayerSplitCam PlayerSplitCam;
+
+		public AddPlayerCam(string playerId, PlayerSplitCam playerSplitCam) : base(playerId)
+		{
+			PlayerSplitCam = playerSplitCam;
+		}
+	}
 }
 
-public class InputSignal
+public class PlayerSignal
 {
 	public readonly string PlayerId;
 
-	public InputSignal(string playerId)
+	public PlayerSignal(string playerId)
 	{
 		PlayerId = playerId;
 	}
@@ -141,91 +151,91 @@ public class InputSignal
 		return new NetworkEvent(PlayerId, this.GetType().ToString());
 	}
 
-	public static InputSignal FromJson(string input)
+	public static PlayerSignal FromJson(string input)
 	{
 		var networkEvent = JsonUtility.FromJson<NetworkEvent>(input);
 		var t = Type.GetType(networkEvent.EventType);
-		return (InputSignal) Activator.CreateInstance(t, networkEvent.PlayerId);
+		return (PlayerSignal) Activator.CreateInstance(t, networkEvent.PlayerId);
 	}
 
-	public class IAmMaster : InputSignal
+	public class IAmMaster : PlayerSignal
 	{
 		public IAmMaster(string playerId) : base(playerId)
 		{
 		}
 	}
 
-	public class LeftArrowDown : InputSignal
+	public class LeftArrowDown : PlayerSignal
 	{
 		public LeftArrowDown(string playerId) : base(playerId)
 		{
 		}
 	}
 
-	public class LeftArrowUp : InputSignal
+	public class LeftArrowUp : PlayerSignal
 	{
 		public LeftArrowUp(string playerId) : base(playerId)
 		{
 		}
 	}
 
-	public class RightArrowDown : InputSignal
+	public class RightArrowDown : PlayerSignal
 	{
 		public RightArrowDown(string playerId) : base(playerId)
 		{
 		}
 	}
 
-	public class RightArrowUp : InputSignal
+	public class RightArrowUp : PlayerSignal
 	{
 		public RightArrowUp(string playerId) : base(playerId)
 		{
 		}
 	}
 
-	public class ForwardArrowUp : InputSignal
+	public class ForwardArrowUp : PlayerSignal
 	{
 		public ForwardArrowUp(string playerId) : base(playerId)
 		{
 		}
 	}
 
-	public class ForwardArrowDown : InputSignal
+	public class ForwardArrowDown : PlayerSignal
 	{
 		public ForwardArrowDown(string playerId) : base(playerId)
 		{
 		}
 	}
 
-	public class DownArrowDown : InputSignal
+	public class DownArrowDown : PlayerSignal
 	{
 		public DownArrowDown(string playerId) : base(playerId)
 		{
 		}
 	}
 
-	public class DownArrowUp : InputSignal
+	public class DownArrowUp : PlayerSignal
 	{
 		public DownArrowUp(string playerId) : base(playerId)
 		{
 		}
 	}
 
-	public class FireDown : InputSignal
+	public class FireDown : PlayerSignal
 	{
 		public FireDown(string playerId) : base(playerId)
 		{
 		}
 	}
 
-	public class FireUp : InputSignal
+	public class FireUp : PlayerSignal
 	{
 		public FireUp(string playerId) : base(playerId)
 		{
 		}
 	}
 
-	public class UpgradeArmor : InputSignal
+	public class UpgradeArmor : PlayerSignal
 	{
 		public UpgradeArmor(string playerId) : base(playerId)
 		{

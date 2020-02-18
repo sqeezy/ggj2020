@@ -13,7 +13,7 @@ namespace GenericProvider
 		private static extern string GetQueryParam(string paramId);
 
 		//Change this to true, to run in master mode in the Unity editor
-		private const bool DEFAULT_MASTER = false;
+		private const bool DEFAULT_MASTER = true;
 
 		public string ReadQueryParam(string paramId)
 		{

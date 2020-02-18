@@ -77,7 +77,7 @@ public class WebSocketService
 			{
 				try
 				{
-					var inputSignal = InputSignal.FromJson(message);
+					var inputSignal = PlayerSignal.FromJson(message);
 					_signalBus.Fire(inputSignal);
 					_signalBus.Fire(new GameSignals.PlayerActionTriggered(inputSignal.PlayerId));
 				}

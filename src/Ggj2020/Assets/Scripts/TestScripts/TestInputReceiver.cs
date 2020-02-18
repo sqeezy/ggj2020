@@ -10,12 +10,12 @@ public class TestInputReceiver : MonoBehaviour
 	[Inject]
 	public void Init(SignalBus bus)
 	{
-		bus.Subscribe<InputSignal.LeftArrowUp>(m => UpdateText(m.PlayerId,"LeftArrowUp"));
-		bus.Subscribe<InputSignal.LeftArrowDown>(m => UpdateText(m.PlayerId, "LeftArrowDown"));
-		bus.Subscribe<InputSignal.RightArrowUp>(m => UpdateText(m.PlayerId,"RightArrowUp"));
-		bus.Subscribe<InputSignal.RightArrowDown>(m => UpdateText(m.PlayerId,"RightArrowDown"));
-		bus.Subscribe<InputSignal.ForwardArrowDown>(m => UpdateText(m.PlayerId,"ForwardArrowDown"));
-		bus.Subscribe<InputSignal.ForwardArrowUp>(m => UpdateText(m.PlayerId,"ForwardArrowUp"));
+		bus.Subscribe<PlayerSignal.LeftArrowUp>(m => UpdateText(m.PlayerId,"LeftArrowUp"));
+		bus.Subscribe<PlayerSignal.LeftArrowDown>(m => UpdateText(m.PlayerId, "LeftArrowDown"));
+		bus.Subscribe<PlayerSignal.RightArrowUp>(m => UpdateText(m.PlayerId,"RightArrowUp"));
+		bus.Subscribe<PlayerSignal.RightArrowDown>(m => UpdateText(m.PlayerId,"RightArrowDown"));
+		bus.Subscribe<PlayerSignal.ForwardArrowDown>(m => UpdateText(m.PlayerId,"ForwardArrowDown"));
+		bus.Subscribe<PlayerSignal.ForwardArrowUp>(m => UpdateText(m.PlayerId,"ForwardArrowUp"));
 		
 	}
 
